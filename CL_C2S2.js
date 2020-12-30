@@ -4602,9 +4602,7 @@ var TR_FeedbackComponents;
 function TR_FeedbackRoutineBegin(trials) {
   return function () {
     //------Prepare to start Routine 'TR_Feedback'-------
-    if (tr_feedback === 0){
-      continueRoutine = false;
-    }
+    
     t = 0;
     TR_FeedbackClock.reset(); // clock
     frameN = -1;
@@ -4634,6 +4632,10 @@ function TR_FeedbackRoutineEachFrame(trials) {
   return function () {
     //------Loop for each frame of Routine 'TR_Feedback'-------
     let continueRoutine = true; // until we're told otherwise
+
+    if (tr_feedback === 0){
+      continueRoutine = false;
+    }
     // get current time
     t = TR_FeedbackClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
@@ -4728,9 +4730,7 @@ var TR_PenaltyComponents;
 function TR_PenaltyRoutineBegin(trials) {
   return function () {
     //------Prepare to start Routine 'TR_Penalty'-------
-    if (tr_penalty === 0){
-      continueRoutine = false;
-    }
+    
     t = 0;
     TR_PenaltyClock.reset(); // clock
     frameN = -1;
@@ -4761,6 +4761,10 @@ function TR_PenaltyRoutineEachFrame(trials) {
   return function () {
     //------Loop for each frame of Routine 'TR_Penalty'-------
     let continueRoutine = true; // until we're told otherwise
+
+    if (tr_penalty === 0){
+      continueRoutine = false;
+    }
     // get current time
     t = TR_PenaltyClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
