@@ -2745,6 +2745,7 @@ function Import_Stim_FileRoutineBegin(trials) {
     for (var i = 0, _pj_a = num_ctx; (i < _pj_a); i += 1) {
         ctx_color_list.append(ctx_color_all[i]);
     }
+    thisExp.addData("Ctx_Color_List", ctx_color_list);
     hand_shape = StimList[0]["Hand"];
     stim_num_hand = [];
     for (var i = 0, _pj_a = num_pos; (i < _pj_a); i += 1) {
@@ -3522,8 +3523,6 @@ function Pre_TrialRoutineBegin(trials) {
             ctx_start_time = 0;
         }
     }
-    console.log(prep_time);
-    console.log(trial_count_item);
     
     Pre_Trial_HandShape.setOpacity(hand_opacity);
     Pre_Trial_HandShape.setImage(hand_shape);
