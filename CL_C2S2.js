@@ -3830,7 +3830,6 @@ function RT_FeedbackRoutineEnd(trials) {
   };
 }
 
-
 var Post_Trial_HandComponents;
 function Post_Trial_HandRoutineBegin(trials) {
   return function () {
@@ -4230,6 +4229,7 @@ function TR_Enter_Trials_HandRoutineBegin(trials) {
     TR_Circle_Hand.setOpacity(circle_opacity);
     TR_Circle_Hand.setLineColor(new util.Color(circle_color));
     TR_Circle_Hand.setLineWidth(circle_wd);
+    TR_Circle_Hand.setSize([0.26 + 0.2 * time_limit,0.26 + 0.2 * time_limit]);
     TR_Circle_Frame_Hand.setOpacity(circle_frame_opacity);
     TR_Circle_Frame_Hand.setLineColor(new util.Color(circle_frame_color));
     TR_Circle_Frame_Hand.setLineWidth(circle_wd);
@@ -6016,6 +6016,7 @@ function TR_Enter_TrialsRoutineBegin(trials) {
     TR_Circle.setOpacity(circle_opacity);
     TR_Circle.setLineColor(new util.Color(circle_color));
     TR_Circle.setLineWidth(circle_wd);
+    TR_Circle.setSize([0.26 + 0.2 * time_limit,0.26 + 0.2 * time_limit]);
     TR_Ctx.setOpacity(ctx_opacity);
     TR_Ctx.setSize([ctx_size, ctx_size]);
     TR_Ctx.setFillColor(new util.Color(ctx_color_item));
