@@ -2802,6 +2802,7 @@ function Import_Stim_FileRoutineBegin(trials) {
         ctx_color_list.push(ctx_color_all[i]);
     }
     psychoJS.experiment.addData("Ctx_Color_List", ctx_color_list);
+
     hand_shape = StimList[0]["Hand"];
     stim_num_hand = [];
     for (var i = 0, _pj_a = num_pos; (i < _pj_a); i += 1) {
@@ -3409,6 +3410,9 @@ function Creat_StimSeqRoutineBegin(trials) {
             total_num_trials = num_trials;
         }
     }
+
+    console.log(finger)
+    
     count = 0;
     while ((count < (total_num_trials / 20))) {
          util.shuffle(x2);
@@ -3446,7 +3450,7 @@ function Creat_StimSeqRoutineBegin(trials) {
         }
         count = (count + 1);
     }
-    
+    console.log(seq_finger)
     // keep track of which components have finished
     Creat_StimSeqComponents = [];
     
