@@ -3201,8 +3201,12 @@ var seq_handy;
 var seq_finger_hand;
 var seq_key_num_hand;
 var seq_stim_num_hand;
+var seq_ctx_color;
+var seq_key_num;
+var seq_stim_num;
 var total_num_trials;
 var Creat_StimSeqComponents;
+
 function Creat_StimSeqRoutineBegin(trials) {
   return function () {
     //------Prepare to start Routine 'Creat_StimSeq'-------
@@ -3859,6 +3863,7 @@ function Post_Trial_HandRoutineBegin(trials) {
     psychoJS.experiment.addData("Block_Num", block_count);
     psychoJS.experiment.addData("Prep_Time", prep_time);
     psychoJS.experiment.addData("Actual_Press", press);
+    psychoJS.experiment.addData("Correct", corr);
     psychoJS.experiment.addData("RT", rt);
     psychoJS.experiment.addData("Session", session);
     
@@ -4056,7 +4061,6 @@ function Instr_TR_HandRoutineEachFrame(trials) {
     }
   };
 }
-
 
 function Instr_TR_HandRoutineEnd(trials) {
   return function () {
