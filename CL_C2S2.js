@@ -5237,6 +5237,8 @@ function RT_Enter_TrialRoutineEnd(trials) {
         trial_count = (trial_count + 1);
     }
     
+    console.log(RT_Press.keys)
+    console.log(finger_item)
     // was no response the correct answer?!
     if (RT_Press.keys === undefined) {
       if (['None','none',undefined].includes(finger_item)) {
