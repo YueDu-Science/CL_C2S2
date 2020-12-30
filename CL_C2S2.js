@@ -2996,7 +2996,7 @@ Ready? Press (H) or (U) to continue.`
     ;
     instr_cr_new_text = `Congratulations!
     
-Now, the background will change to another color. You need to learn a new map bewtween those four symbols and four keys.
+Now, you need to learn a new map bewtween those four symbols and two keys.
     
 Again, ACCURACY is the priority, so go as slowly as you need to. The more mistaks you make, the longer this block will take.
     
@@ -3011,7 +3011,7 @@ Whenever you are ready, press (H) or (U) to start.`
     ;
     } else {
         if (((1 < session) && (session < 6))) {
-            instr_rt_old_text = `Today, we continue to practice the symbol-key maps you learned.
+            instr_rt_old_text = `Today, we first continue to practice the symbol-key maps for ${rt_old_block} blocks.
     
 There are ${rt_old_block} blocks today. Remember, your job is to press the corresponding key as quickly and accurately as you can.
     
@@ -3036,13 +3036,15 @@ Whenever you are ready, press (H) or (U) to start.`
     ;
     instr_tr_old_text = `Good job so far.
     
-In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
+In the following $(tr_old_block) blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
     
 Press (H) or (U) to start.`
     ;
     instr_tr_new_text = `Good job so far.
     
-In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
+In the following $(tr_new_block) blocks, use the NEW MAP you learned.
+
+Press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
     
 Press (H) or (U) to start.`
     ;
