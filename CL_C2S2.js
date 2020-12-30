@@ -468,7 +468,7 @@ function experimentInit() {
     win: psychoJS.window,
     name: 'Instr_Exp_Text',
     alignText: 'center',
-    text: 'Thank you for participating in our study! \n\nThis study has multiple sessions and it will take 40 minutes today. Once you start, you cannot turn off your web browser until you complete the study.\n\nIf you are ready, press (space) to continue.\n\n\n\n\n\n',
+    text: 'default text',
     font: 'Arial',
     units: undefined, 
     pos: [0, 0], height: 0.03,  wrapWidth: undefined, ori: 0,
@@ -1826,9 +1826,6 @@ function TR_Iter_HandLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Enter_Trials_HandRoutineBegin(snapshot));
     thisScheduler.add(TR_Enter_Trials_HandRoutineEachFrame(snapshot));
     thisScheduler.add(TR_Enter_Trials_HandRoutineEnd(snapshot));
-    thisScheduler.add(Post_TrialRoutineBegin(snapshot));
-    thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
-    thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     const TR_Feedback_Bool_HandLoopScheduler = new Scheduler(psychoJS);
     thisScheduler.add(TR_Feedback_Bool_HandLoopBegin, TR_Feedback_Bool_HandLoopScheduler);
     thisScheduler.add(TR_Feedback_Bool_HandLoopScheduler);
@@ -1837,6 +1834,9 @@ function TR_Iter_HandLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Penalty_Bool_HandLoopBegin, TR_Penalty_Bool_HandLoopScheduler);
     thisScheduler.add(TR_Penalty_Bool_HandLoopScheduler);
     thisScheduler.add(TR_Penalty_Bool_HandLoopEnd);
+    thisScheduler.add(Post_TrialRoutineBegin(snapshot));
+    thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
   }
 
@@ -2439,9 +2439,6 @@ function TR_Old_IterLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Enter_TrialsRoutineBegin(snapshot));
     thisScheduler.add(TR_Enter_TrialsRoutineEachFrame(snapshot));
     thisScheduler.add(TR_Enter_TrialsRoutineEnd(snapshot));
-    thisScheduler.add(Post_TrialRoutineBegin(snapshot));
-    thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
-    thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     const TR_Feedback_Old_BoolLoopScheduler = new Scheduler(psychoJS);
     thisScheduler.add(TR_Feedback_Old_BoolLoopBegin, TR_Feedback_Old_BoolLoopScheduler);
     thisScheduler.add(TR_Feedback_Old_BoolLoopScheduler);
@@ -2450,6 +2447,9 @@ function TR_Old_IterLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Penalty_Old_BoolLoopBegin, TR_Penalty_Old_BoolLoopScheduler);
     thisScheduler.add(TR_Penalty_Old_BoolLoopScheduler);
     thisScheduler.add(TR_Penalty_Old_BoolLoopEnd);
+    thisScheduler.add(Post_TrialRoutineBegin(snapshot));
+    thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
   }
 
@@ -2962,6 +2962,15 @@ function Import_Stim_FileRoutineEnd(trials) {
         thisComponent.setAutoDraw(false);
       }
     }
+
+    instr_exp = `Thank you for participating in our study! 
+    
+This study has multiple sessions and it will take 40 minutes today. 
+
+Once you start, you cannot turn off your web browser until you complete the study.
+
+If you are ready, press (space) to continue.`
+    
     instr_rt_text_hand = `The upcoming three blocks are used to be familiar with the task.
     
 With your Right hand, place your Index and Middle fingers on (H, U) respectively. Your fingers will rest on these keys for the entirety of the experiment.
@@ -3065,6 +3074,7 @@ function Instr_ExpRoutineBegin(trials) {
     Instr_ExpClock.reset(); // clock
     frameN = -1;
     // update component parameters for each repeat
+    Instr_Exp_Text.setText(instr_exp);
     Instr_Exp_Key.keys = undefined;
     Instr_Exp_Key.rt = undefined;
     _Instr_Exp_Key_allKeys = [];
