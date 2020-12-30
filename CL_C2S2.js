@@ -3015,7 +3015,7 @@ Whenever you are ready, press (H) or (U) to start.`
     
 Remember, your job is to press the corresponding key as quickly and accurately as you can.
     
-Ready? Press (H) or (U)to start.`
+Ready? Press (H) or (U) to start.`
     ;
         } else {
             if ((session > 5)) {
