@@ -223,6 +223,7 @@ var prep_time_range;
 var prep_time_ind_tmp;
 var prep_time_ind;
 var num;
+var sample_num;
 var count;
 var rng1;
 var rng2;
