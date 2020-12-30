@@ -2923,13 +2923,13 @@ In the following 6 blocks, press the corresponding key when the larger white rin
     
 Press one of (H, U) to start.`
     ;
-    penalty_toolate_text = `Response was too late.
-  2 second penalty.
-  After 2 second, press one of (H, U) to continue.`
+    penalty_toolate_text = `Response was too late
+  2 second penalty
+  After 2 second, press one of (H, U) to continue`
     ;
-    penalty_tooearly_text = `Response was too early.
-  2 second penalty.
-  After 2 second, press one of (H, U) to continue.`
+    penalty_tooearly_text = `Response was too early
+  2 second penalty
+  After 2 second, press one of (H, U) to continue`
     ;
     feedback_early_text = `little early`;
     feedback_late_text = `little late`;
