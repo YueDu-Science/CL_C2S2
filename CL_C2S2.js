@@ -4624,6 +4624,9 @@ var TR_FeedbackComponents;
 function TR_FeedbackRoutineBegin(trials) {
   return function () {
     //------Prepare to start Routine 'TR_Feedback'-------
+    if (tr_feedback === 0){
+      continueRoutine = false;
+    }
     t = 0;
     TR_FeedbackClock.reset(); // clock
     frameN = -1;
@@ -4747,6 +4750,9 @@ var TR_PenaltyComponents;
 function TR_PenaltyRoutineBegin(trials) {
   return function () {
     //------Prepare to start Routine 'TR_Penalty'-------
+    if (tr_penalty === 0){
+      continueRoutine = false;
+    }
     t = 0;
     TR_PenaltyClock.reset(); // clock
     frameN = -1;
