@@ -2940,7 +2940,7 @@ function Import_Stim_FileRoutineEachFrame(trials) {
   };
 }
 
-
+var instr_exp_text;
 var instr_rt_text_hand;
 var instr_tr_text_hand;
 var instr_cr_old_text;
