@@ -2855,13 +2855,13 @@ With your Right hand, place your Index, Middle, Ring, and Pinky fingers on (H, U
     
 You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
     
-Ready? Press one of these keys to continue.`
+Ready? Press one of (H, U) to continue.`
     ;
     instr_tr_text_hand = `Great Job!
     
 Now, you need to press the corresponding finger when the larger white ring intersects the smaller grey ring. Sometimes, the finger will light up at the very last second. You will not have enough time to know which finger to press. In this case, MAKE A GUESS. Always press one of your fingers when two rings intersect.
     
-Let’s practice! Press one of the keys to continue.`
+Let’s practice! Press one of (H, U) to continue.`
     ;
     instr_cr_old_text = `Good Job! You are now ready for the tasks!
     
@@ -2869,7 +2869,7 @@ You will see four symbols on the screen. Each symbol corresponds to one of the k
 
 ACCURACY is the priority, so go as slowly as you need to. The more mistakes you make, the longer this block will take.
     
-Ready? Press one of the keys to continue.`
+Ready? Press one of (H, U) to continue.`
     ;
     instr_cr_new_text = `Congratulations!
     
@@ -2877,14 +2877,14 @@ Now, the background will change to another color. You need to learn a new map be
     
 Again, ACCURACY is the priority, so go as slowly as you need to. The more mistaks you make, the longer this block will take.
     
-When you are ready, press one of the keys to continue.`
+When you are ready, press one of (H, U) to continue.`
     ;
     if ((session === 1)) {
         instr_rt_old_text = `Now using the maps that you just learned, your job is to press the corresponding key as quickly and as accurately as possible.
     
 There will be ${rt_old_block} blocks with short breaks in between.
     
-Whenever you are ready, press one of the keys to start.`
+Whenever you are ready, press one of (H, U) to start.`
     ;
     } else {
         if (((1 < session) && (session < 6))) {
@@ -2892,7 +2892,7 @@ Whenever you are ready, press one of the keys to start.`
     
 There are ${rt_old_block} blocks today. Remember, your job is to press the corresponding key as quickly and accurately as you can.
     
-Ready? Press one of the keys to start.`
+Ready? Press one of (H, U) to start.`
     ;
         } else {
             if ((session > 5)) {
@@ -2900,7 +2900,7 @@ Ready? Press one of the keys to start.`
     
 Remember, your job is to press the corresponding key as quickly and accurately as you can.
     
-Whenever you are ready, press one of the keys to start.`
+Whenever you are ready, press one of (H, U) to start.`
     ;
             }
         }
@@ -2909,27 +2909,27 @@ Whenever you are ready, press one of the keys to start.`
     
 There will be ${rt_old_block} blocks with short breaks in between.
     
-Whenever you are ready, press one of the keys to start.`
+Whenever you are ready, press one of (H, U) to start.`
     ;
     instr_tr_old_text = `Good job so far.
     
 In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
     
-Press one of the keys to start.`
+Press one of (H, U) to start.`
     ;
     instr_tr_new_text = `Good job so far.
     
 In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
     
-Press one of the keys to start.`
+Press one of (H, U) to start.`
     ;
     penalty_toolate_text = `Response was too late.
   2 second penalty.
-  After 2 second, press one of the keys to continue.`
+  After 2 second, press one of (H, U) to continue.`
     ;
     penalty_tooearly_text = `Response was too early.
   2 second penalty.
-  After 2 second, press one of the keys to continue.`
+  After 2 second, press one of (H, U) to continue.`
     ;
     feedback_early_text = `little early`;
     feedback_late_text = `little late`;
