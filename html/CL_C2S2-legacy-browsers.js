@@ -2,14 +2,6 @@
  * Cl_C2S2 Test *
  ****************/
 
-import { PsychoJS } from './lib/core-2020.1.js';
-import * as core from './lib/core-2020.1.js';
-import { TrialHandler } from './lib/data-2020.1.js';
-import { Scheduler } from './lib/util-2020.1.js';
-import * as util from './lib/util-2020.1.js';
-import * as visual from './lib/visual-2020.1.js';
-import * as sound from './lib/sound-2020.1.js';
-
 // init psychoJS:
 const psychoJS = new PsychoJS({
   debug: true
@@ -29,7 +21,6 @@ let expInfo = {'participant': '', 'session': ''};
 
 // schedule the experiment:
 psychoJS.schedule(psychoJS.gui.DlgFromDict({
-  text: "Welcome. Make sure you type in your 'participation ID' and 'session number', then press 'Ok' to continue.",
   dictionary: expInfo,
   title: expName
 }));
@@ -89,16 +80,6 @@ dialogCancelScheduler.add(quitPsychoJS, '', false);
 psychoJS.start({
   expName: expName,
   expInfo: expInfo,
-  resources: [
-    {'name': 'media/dcnb.png', 'path': './media/dcnb.png'},
-    {'name': 'media/dfnb.png', 'path': './media/dfnb.png'},
-    {'name': 'media/hand.png', 'path': './media/hand.png'},
-    {'name': 'media/dbnb.png', 'path': './media/dbnb.png'},
-    {'name': 'conditions.xlsx', 'path': './conditions.xlsx'},
-    {'name': 'media/dknb.png', 'path': './media/dknb.png'},
-    {'name': 'media/check.png', 'path': './media/check.png'},
-    {'name': 'media/cross.png', 'path': './media/cross.png'}
-  ]
   });
 
 
@@ -122,32 +103,6 @@ function updateInfo() {
   return Scheduler.Event.NEXT;
 }
 
-// customized functions needed
-Array.prototype.append = [].push
-
-/// define a permutation function
-function permute(permutation) {
-  var length = permutation.length,
-      result = [permutation.slice()],
-      c = new Array(length).fill(0),
-      i = 1, k, p;
-
-  while (i < length) {
-    if (c[i] < i) {
-      k = i % 2 && c[i];
-      p = permutation[i];
-      permutation[i] = permutation[k];
-      permutation[k] = p;
-      ++c[i];
-      i = 1;
-      result.push(permutation.slice());
-    } else {
-      c[i] = 0;
-      ++i;
-    }
-  }
-  return result;
-}
 
 var Import_Stim_FileClock;
 var block_type;
@@ -174,9 +129,9 @@ var x;
 var x2;
 var x_hand;
 var x2_hand;
+var ctx_color_all;
 var ctx_color_list;
 var ctx_list;
-var ctx_color_all;
 var num_key;
 var stim_key;
 var stim_key_perm;
@@ -205,8 +160,8 @@ var tr_old_block;
 var tr_new_block;
 var timing_tol_early;
 var timing_tol_late;
-var tr_feedback_text;
-var tr_penalty_text;
+var TR_feedback_text;
+var TR_penalty_text;
 var StimList;
 var hand_shape;
 var x_pos;
@@ -223,18 +178,8 @@ var rng;
 var prep_time_range;
 var prep_time_ind_tmp;
 var prep_time_ind;
-var sample_num;
-var seq_stim;
-var seq_finger;
-var seq_image;
-var seq_ctx;
+var num;
 var count;
-
-var myrng = new Math.seedrandom(participant);   //use new here so it does not affect Math.random()
-var rng1 = myrng();
-var rng2 = myrng();
-var rng3 = myrng();
-
 var prep_time_interval;
 var Instr_ExpClock;
 var Instr_Exp_Text;
@@ -243,8 +188,8 @@ var Instr_RT_HandClock;
 var Instr_RT_Hand_Rext;
 var Instr_RT_Hand_Key;
 var Creat_StimSeqClock;
-var Pre_Trial_HandClock;
-var Pre_Trial_Circle_Frame_Hand;
+var Pre_TrialClock;
+var Pre_Trial_Circle_Frame;
 var Pre_Trial_HandShape;
 var RT_Enter_Trial_HandClock;
 var RT_Circle_Frame_Hand;
@@ -254,8 +199,8 @@ var RT_Stim_Hand;
 var RT_FeedbackClock;
 var RT_Circle_Frame_Feedback;
 var RT_Feedback_Image;
-var Post_Trial_HandClock;
-var Post_Trial_Circle_Frame_Hand;
+var Post_TrialClock;
+var Post_Trial_Circle_Frame;
 var Post_Trial_HandShape;
 var Instr_TR_HandClock;
 var instr_HAND_TR_text;
@@ -281,15 +226,11 @@ var TR_Hand_Accuracy_BoolClock;
 var Instr_CR_OldClock;
 var Instr_CR_Old_Text;
 var Instr_CR_Old_Press;
-var Pre_TrialClock;
-var Pre_Trial_Circle_Frame;
 var RT_Enter_TrialClock;
 var RT_Circle_Fame;
 var RT_Ctx;
 var RT_Stim_Image;
 var RT_Press;
-var Post_TrialClock;
-var Post_Trial_Circle_Frame;
 var Criterion_DetClock;
 var Instr_CR_NewClock;
 var Instr_CR_New_Text;
@@ -318,7 +259,17 @@ function experimentInit() {
   // Initialize components for Routine "Import_Stim_File"
   Import_Stim_FileClock = new util.Clock();
   
-  block_type = [];
+          // add-on: list(s: string): string[]
+          function list(s) {
+              // if s is a string, we return a list of its characters
+              if (typeof s === 'string')
+                  return s.split('');
+              else
+                  // otherwise we return s:
+                  return s;
+          }
+          
+          block_type = [];
   participant = Number.parseInt(expInfo["participant"]);
   session = Number.parseInt(expInfo["session"]);
   circle_frame_color = [1, 1, 1];
@@ -343,30 +294,29 @@ function experimentInit() {
   x_hand = [];
   x2_hand = [];
   for (var i = 0, _pj_a = (num_symb * num_ctx); (i < _pj_a); i += 1) {
-      x.push(i);
+      x.append(i);
   }
-  x2 = x.concat(x);
+  x2 = (x + x);
   for (var i = 0, _pj_a = num_pos; (i < _pj_a); i += 1) {
-      x_hand.push(i);
+      x_hand.append(i);
   }
-  x2_hand = x_hand.concat(x_hand);
-
+  x2_hand = (x_hand + x_hand);
   ctx_color_all = [[1, (- 1), (- 1)], [(- 1), 1, (- 1)]];
   ctx_color_list = [];
   ctx_list = [];
   for (var i = 0, _pj_a = num_ctx; (i < _pj_a); i += 1) {
-      ctx_list.push((i + 1));
+      ctx_list.append((i + 1));
   }
   num_key = 2;
   stim_key = [];
   for (var i = 0, _pj_a = num_key; (i < _pj_a); i += 1) {
-      stim_key.push(i);
+      stim_key.append(i);
   }
-  stim_key_perm = permute(stim_key);
+  stim_key_perm = list(permutations(stim_key));
   n_map = stim_key_perm.length;
   rt_block_hand = 1;
   tr_block_hand = 4;
-  num_per_pos = 2;
+  num_per_pos = 25;
   num_trials_hand = (num_per_pos * num_pos);
   num_trials_cr = 2000;
   num_criterion = 1;
@@ -388,16 +338,16 @@ function experimentInit() {
   tr_new_block = 0;
   if ((session === 1)) {
       instr_exp = 1;
-      hand_rt = 1;
-      hand_tr = 1;
-      cr_old = 1;
-      cr_new = 1;
-      rt_old = 1;
-      rt_new = 1;
+      hand_rt = 0;
+      hand_tr = 0;
+      cr_old = 0;
+      cr_new = 0;
+      rt_old = 0;
+      rt_new = 0;
       rt_old_block = 1;
       rt_new_block = 1;
       tr_old = 1;
-      tr_new = 1;
+      tr_new = 0;
       tr_old_block = 1;
       tr_new_block = 1;
   } else {
@@ -422,6 +372,8 @@ function experimentInit() {
   }
   timing_tol_early = 0.1;
   timing_tol_late = 0.075;
+  TR_feedback_text = [];
+  TR_penalty_text = [];
   StimList = [];
   hand_shape = [];
   x_pos = [];
@@ -434,34 +386,27 @@ function experimentInit() {
   ctx_color_remap = [];
   ctx_remap = [];
   grp = 0;
-  if ((rng1 < 0.33)) {
+  rng = 0.2;
+  if ((rng < 0.33)) {
       grp = 1;
   } else {
-      if (((0.33 <= rng1) && (rng1 < 0.66))) {
+      if (((0.33 <= rng) && (rng < 0.66))) {
           grp = 2;
       } else {
           grp = 3;
       }
   }
-  console.log(grp)
-
   prep_time_range = [0, 1.2];
   prep_time_ind_tmp = [];
   prep_time_ind = [];
-  sample_num = [2, 4, 4, 4, 4, 4, 3];
-  for (var i = 0; i<sample_num.length; ++i) {
-    let LEN = sample_num[i];
-    let tmp = new Array(LEN).fill(i);
-    prep_time_ind_tmp = prep_time_ind_tmp.concat(tmp);
-  }
-  
+  num = [2, 4, 4, 4, 4, 4, 3];
+  prep_time_ind_tmp = ((((((([0] * 2) + ([1] * 4)) + ([2] * 4)) + ([3] * 4)) + ([4] * 4)) + ([5] * 4)) + ([6] * 3));
   count = 0;
   while ((count < (num_symb * num_ctx))) {
-      util.shuffle(prep_time_ind_tmp);
-      prep_time_ind.push(prep_time_ind_tmp.slice(0));
+      shuffle(prep_time_ind_tmp);
+      prep_time_ind.append(prep_time_ind_tmp.slice(0));
       count = (count + 1);
   }
-
   prep_time_interval = [[(- 0.5), (- 0.3)], [prep_time_range[0], 0.2], [0.2, 0.4], [0.4, 0.6], [0.6, 0.8], [0.8, 1], [1, prep_time_range[1]]];
   
   // Initialize components for Routine "Instr_Exp"
@@ -469,7 +414,6 @@ function experimentInit() {
   Instr_Exp_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_Exp_Text',
-    alignText: 'center',
     text: 'Thank you for participating in our study! \n\nThis study has multiple sessions and it will take 40 minutes today. Once you start, you cannot turn off your web browser until you complete the study.\n\nIf you are ready, press (space) to continue.\n\n\n\n\n\n',
     font: 'Arial',
     units: undefined, 
@@ -485,7 +429,6 @@ function experimentInit() {
   Instr_RT_Hand_Rext = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_RT_Hand_Rext',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -498,10 +441,10 @@ function experimentInit() {
   
   // Initialize components for Routine "Creat_StimSeq"
   Creat_StimSeqClock = new util.Clock();
-  // Initialize components for Routine "Pre_Trial_Hand"
-  Pre_Trial_HandClock = new util.Clock();
-  Pre_Trial_Circle_Frame_Hand = new visual.Polygon ({
-    win: psychoJS.window, name: 'Pre_Trial_Circle_Frame_Hand', units : 'height', 
+  // Initialize components for Routine "Pre_Trial"
+  Pre_TrialClock = new util.Clock();
+  Pre_Trial_Circle_Frame = new visual.Polygon ({
+    win: psychoJS.window, name: 'Pre_Trial_Circle_Frame', units : 'height', 
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
@@ -514,7 +457,7 @@ function experimentInit() {
     name : 'Pre_Trial_HandShape', units : 'height', 
     image : undefined, mask : undefined,
     ori : 0, pos : [0, 0], size : [0.25, 0.25],
-    color : new util.Color([1, 1, 1]), opacity : 1,
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
     flipHoriz : false, flipVert : false,
     texRes : 128, interpolate : true, depth : -2.0 
   });
@@ -569,10 +512,10 @@ function experimentInit() {
     flipHoriz : false, flipVert : false,
     texRes : 128, interpolate : true, depth : -1.0 
   });
-  // Initialize components for Routine "Post_Trial_Hand"
-  Post_Trial_HandClock = new util.Clock();
-  Post_Trial_Circle_Frame_Hand = new visual.Polygon ({
-    win: psychoJS.window, name: 'Post_Trial_Circle_Frame_Hand', units : 'height', 
+  // Initialize components for Routine "Post_Trial"
+  Post_TrialClock = new util.Clock();
+  Post_Trial_Circle_Frame = new visual.Polygon ({
+    win: psychoJS.window, name: 'Post_Trial_Circle_Frame', units : 'height', 
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
@@ -585,7 +528,7 @@ function experimentInit() {
     name : 'Post_Trial_HandShape', units : 'height', 
     image : undefined, mask : undefined,
     ori : 0, pos : [0, 0], size : [0.25, 0.25],
-    color : new util.Color([1, 1, 1]), opacity : 1,
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
     flipHoriz : false, flipVert : false,
     texRes : 128, interpolate : true, depth : -2.0 
   });
@@ -594,7 +537,6 @@ function experimentInit() {
   instr_HAND_TR_text = new visual.TextStim({
     win: psychoJS.window,
     name: 'instr_HAND_TR_text',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -612,7 +554,6 @@ function experimentInit() {
   Instr_Block_Num_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_Block_Num_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -623,10 +564,10 @@ function experimentInit() {
   
   Instr_Block_Num_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
-  // Initialize components for Routine "Pre_Trial_Hand"
-  Pre_Trial_HandClock = new util.Clock();
-  Pre_Trial_Circle_Frame_Hand = new visual.Polygon ({
-    win: psychoJS.window, name: 'Pre_Trial_Circle_Frame_Hand', units : 'height', 
+  // Initialize components for Routine "Pre_Trial"
+  Pre_TrialClock = new util.Clock();
+  Pre_Trial_Circle_Frame = new visual.Polygon ({
+    win: psychoJS.window, name: 'Pre_Trial_Circle_Frame', units : 'height', 
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
@@ -639,7 +580,7 @@ function experimentInit() {
     name : 'Pre_Trial_HandShape', units : 'height', 
     image : undefined, mask : undefined,
     ori : 0, pos : [0, 0], size : [0.25, 0.25],
-    color : new util.Color([1, 1, 1]), opacity : 1,
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
     flipHoriz : false, flipVert : false,
     texRes : 128, interpolate : true, depth : -2.0 
   });
@@ -650,7 +591,7 @@ function experimentInit() {
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
+    fillColor: new util.Color(undefined),
     opacity: 1.0, depth: -1, interpolate: true,
   });
   
@@ -697,7 +638,6 @@ function experimentInit() {
   TR_Feedback_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'TR_Feedback_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -729,7 +669,6 @@ function experimentInit() {
   TR_Penalty_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'TR_Penalty_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -740,10 +679,10 @@ function experimentInit() {
   
   TR_Penalty_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
-  // Initialize components for Routine "Post_Trial_Hand"
-  Post_Trial_HandClock = new util.Clock();
-  Post_Trial_Circle_Frame_Hand = new visual.Polygon ({
-    win: psychoJS.window, name: 'Post_Trial_Circle_Frame_Hand', units : 'height', 
+  // Initialize components for Routine "Post_Trial"
+  Post_TrialClock = new util.Clock();
+  Post_Trial_Circle_Frame = new visual.Polygon ({
+    win: psychoJS.window, name: 'Post_Trial_Circle_Frame', units : 'height', 
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
@@ -756,7 +695,7 @@ function experimentInit() {
     name : 'Post_Trial_HandShape', units : 'height', 
     image : undefined, mask : undefined,
     ori : 0, pos : [0, 0], size : [0.25, 0.25],
-    color : new util.Color([1, 1, 1]), opacity : 1,
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
     flipHoriz : false, flipVert : false,
     texRes : 128, interpolate : true, depth : -2.0 
   });
@@ -767,7 +706,6 @@ function experimentInit() {
   Instr_CR_Old_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_CR_Old_Text',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -787,10 +725,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Pre_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Pre_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "RT_Enter_Trial"
   RT_Enter_TrialClock = new util.Clock();
   RT_Circle_Fame = new visual.Polygon ({
@@ -798,7 +745,7 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
+    fillColor: new util.Color(undefined),
     opacity: 1.0, depth: -1, interpolate: true,
   });
   
@@ -806,7 +753,7 @@ function experimentInit() {
     win: psychoJS.window, name: 'RT_Ctx', units : 'height', 
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
-    lineWidth: 1.0, lineColor: undefined,
+    lineWidth: 1.0, lineColor: new util.Color(undefined),
     fillColor: new util.Color(1.0),
     opacity: 1.0, depth: -2, interpolate: true,
   });
@@ -849,10 +796,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Post_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Post_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "Criterion_Det"
   Criterion_DetClock = new util.Clock();
   // Initialize components for Routine "Instr_CR_New"
@@ -860,7 +816,6 @@ function experimentInit() {
   Instr_CR_New_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_CR_New_Text',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -880,10 +835,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Pre_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Pre_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "RT_Enter_Trial"
   RT_Enter_TrialClock = new util.Clock();
   RT_Circle_Fame = new visual.Polygon ({
@@ -891,7 +855,7 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
+    fillColor: new util.Color(undefined),
     opacity: 1.0, depth: -1, interpolate: true,
   });
   
@@ -899,7 +863,7 @@ function experimentInit() {
     win: psychoJS.window, name: 'RT_Ctx', units : 'height', 
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
-    lineWidth: 1.0, lineColor: undefined,
+    lineWidth: 1.0, lineColor: new util.Color(undefined),
     fillColor: new util.Color(1.0),
     opacity: 1.0, depth: -2, interpolate: true,
   });
@@ -942,10 +906,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Post_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Post_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "Criterion_Det"
   Criterion_DetClock = new util.Clock();
   // Initialize components for Routine "Instr_RT_Old"
@@ -953,7 +926,6 @@ function experimentInit() {
   Instr_RT_Old_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_RT_Old_Text',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -971,7 +943,6 @@ function experimentInit() {
   Instr_Block_Num_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_Block_Num_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -989,10 +960,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Pre_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Pre_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "RT_Enter_Trial"
   RT_Enter_TrialClock = new util.Clock();
   RT_Circle_Fame = new visual.Polygon ({
@@ -1000,7 +980,7 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
+    fillColor: new util.Color(undefined),
     opacity: 1.0, depth: -1, interpolate: true,
   });
   
@@ -1008,7 +988,7 @@ function experimentInit() {
     win: psychoJS.window, name: 'RT_Ctx', units : 'height', 
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
-    lineWidth: 1.0, lineColor: undefined,
+    lineWidth: 1.0, lineColor: new util.Color(undefined),
     fillColor: new util.Color(1.0),
     opacity: 1.0, depth: -2, interpolate: true,
   });
@@ -1051,16 +1031,24 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Post_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Post_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "Instr_RT_New"
   Instr_RT_NewClock = new util.Clock();
   Instr_RT_New_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_RT_New_Text',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1078,7 +1066,6 @@ function experimentInit() {
   Instr_Block_Num_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_Block_Num_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1096,10 +1083,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Pre_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Pre_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "RT_Enter_Trial"
   RT_Enter_TrialClock = new util.Clock();
   RT_Circle_Fame = new visual.Polygon ({
@@ -1107,7 +1103,7 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
+    fillColor: new util.Color(undefined),
     opacity: 1.0, depth: -1, interpolate: true,
   });
   
@@ -1115,7 +1111,7 @@ function experimentInit() {
     win: psychoJS.window, name: 'RT_Ctx', units : 'height', 
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
-    lineWidth: 1.0, lineColor: undefined,
+    lineWidth: 1.0, lineColor: new util.Color(undefined),
     fillColor: new util.Color(1.0),
     opacity: 1.0, depth: -2, interpolate: true,
   });
@@ -1158,16 +1154,24 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Post_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Post_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "Instr_TR_Old"
   Instr_TR_OldClock = new util.Clock();
   Instr_TR_Old_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_TR_Old_Text',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1185,7 +1189,6 @@ function experimentInit() {
   Instr_Block_Num_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_Block_Num_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1203,10 +1206,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Pre_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Pre_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "TR_Enter_Trials"
   TR_Enter_TrialsClock = new util.Clock();
   TR_Circle_Frame = new visual.Polygon ({
@@ -1223,7 +1235,7 @@ function experimentInit() {
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
+    fillColor: new util.Color(undefined),
     opacity: 1.0, depth: -2, interpolate: true,
   });
   
@@ -1231,7 +1243,7 @@ function experimentInit() {
     win: psychoJS.window, name: 'TR_Ctx', units : 'height', 
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
-    lineWidth: 1.0, lineColor: undefined,
+    lineWidth: 1.0, lineColor: new util.Color(undefined),
     fillColor: new util.Color(1.0),
     opacity: 1.0, depth: -3, interpolate: true,
   });
@@ -1261,7 +1273,6 @@ function experimentInit() {
   TR_Feedback_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'TR_Feedback_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1293,7 +1304,6 @@ function experimentInit() {
   TR_Penalty_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'TR_Penalty_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1311,16 +1321,24 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Post_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Post_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "Instr_TR_New"
   Instr_TR_NewClock = new util.Clock();
   Instr_TR_New_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_TR_New_Text',
-    alignText: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1338,7 +1356,6 @@ function experimentInit() {
   Instr_Block_Num_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'Instr_Block_Num_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1356,10 +1373,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Pre_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Pre_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Initialize components for Routine "TR_Enter_Trials"
   TR_Enter_TrialsClock = new util.Clock();
   TR_Circle_Frame = new visual.Polygon ({
@@ -1376,7 +1402,7 @@ function experimentInit() {
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
+    fillColor: new util.Color(undefined),
     opacity: 1.0, depth: -2, interpolate: true,
   });
   
@@ -1384,7 +1410,7 @@ function experimentInit() {
     win: psychoJS.window, name: 'TR_Ctx', units : 'height', 
     edges: circle_pol, size:[1.0, 1.0],
     ori: 0, pos: [0, 0],
-    lineWidth: 1.0, lineColor: undefined,
+    lineWidth: 1.0, lineColor: new util.Color(undefined),
     fillColor: new util.Color(1.0),
     opacity: 1.0, depth: -3, interpolate: true,
   });
@@ -1414,7 +1440,6 @@ function experimentInit() {
   TR_Feedback_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'TR_Feedback_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1446,7 +1471,6 @@ function experimentInit() {
   TR_Penalty_Text = new visual.TextStim({
     win: psychoJS.window,
     name: 'TR_Penalty_Text',
-    alignHoriz: 'center',
     text: 'default text',
     font: 'Arial',
     units: undefined, 
@@ -1464,10 +1488,19 @@ function experimentInit() {
     edges: circle_pol, size:[0.3, 0.3],
     ori: 0, pos: [0, 0],
     lineWidth: 1.0, lineColor: new util.Color(1.0),
-    fillColor: undefined,
-    opacity: 1.0, depth: 0, interpolate: true,
+    fillColor: new util.Color([(- 1), (- 1), (- 1)]),
+    opacity: 0.5, depth: 0, interpolate: true,
   });
   
+  Post_Trial_HandShape = new visual.ImageStim({
+    win : psychoJS.window,
+    name : 'Post_Trial_HandShape', units : 'height', 
+    image : undefined, mask : undefined,
+    ori : 0, pos : [0, 0], size : [0.25, 0.25],
+    color : new util.Color([1, 1, 1]), opacity : 1.0,
+    flipHoriz : false, flipVert : false,
+    texRes : 128, interpolate : true, depth : -2.0 
+  });
   // Create some handy timers
   globalClock = new util.Clock();  // to track the time since experiment started
   routineTimer = new util.CountdownTimer();  // to track time remaining of each (non-slip) routine
@@ -1491,14 +1524,15 @@ function Import_FileLoopBegin(thisScheduler) {
   currentLoop = Import_File;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisImport_File of Import_File) {
+  Import_File.forEach(function() {
     const snapshot = Import_File.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Import_Stim_FileRoutineBegin(snapshot));
     thisScheduler.add(Import_Stim_FileRoutineEachFrame(snapshot));
     thisScheduler.add(Import_Stim_FileRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1516,7 +1550,7 @@ function Instr_Exp_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   Instr_Exp_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: instr_exp, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $instr_exp, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'Instr_Exp_Bool'
@@ -1525,14 +1559,15 @@ function Instr_Exp_BoolLoopBegin(thisScheduler) {
   currentLoop = Instr_Exp_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisInstr_Exp_Bool of Instr_Exp_Bool) {
+  Instr_Exp_Bool.forEach(function() {
     const snapshot = Instr_Exp_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_ExpRoutineBegin(snapshot));
     thisScheduler.add(Instr_ExpRoutineEachFrame(snapshot));
     thisScheduler.add(Instr_ExpRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1550,7 +1585,7 @@ function RT_Bool_HandLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_Bool_Hand = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: hand_rt, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $hand_rt, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_Bool_Hand'
@@ -1559,8 +1594,9 @@ function RT_Bool_HandLoopBegin(thisScheduler) {
   currentLoop = RT_Bool_Hand;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_Bool_Hand of RT_Bool_Hand) {
+  RT_Bool_Hand.forEach(function() {
     const snapshot = RT_Bool_Hand.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_RT_HandRoutineBegin(snapshot));
     thisScheduler.add(Instr_RT_HandRoutineEachFrame(snapshot));
@@ -1573,7 +1609,7 @@ function RT_Bool_HandLoopBegin(thisScheduler) {
     thisScheduler.add(RT_Iter_HandLoopScheduler);
     thisScheduler.add(RT_Iter_HandLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1584,7 +1620,7 @@ function RT_Iter_HandLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_Iter_Hand = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials_hand, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials_hand, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_Iter_Hand'
@@ -1593,23 +1629,24 @@ function RT_Iter_HandLoopBegin(thisScheduler) {
   currentLoop = RT_Iter_Hand;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_Iter_Hand of RT_Iter_Hand) {
+  RT_Iter_Hand.forEach(function() {
     const snapshot = RT_Iter_Hand.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
-    thisScheduler.add(Pre_Trial_HandRoutineBegin(snapshot));
-    thisScheduler.add(Pre_Trial_HandRoutineEachFrame(snapshot));
-    thisScheduler.add(Pre_Trial_HandRoutineEnd(snapshot));
+    thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
+    thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(Pre_TrialRoutineEnd(snapshot));
     thisScheduler.add(RT_Enter_Trial_HandRoutineBegin(snapshot));
     thisScheduler.add(RT_Enter_Trial_HandRoutineEachFrame(snapshot));
     thisScheduler.add(RT_Enter_Trial_HandRoutineEnd(snapshot));
     thisScheduler.add(RT_FeedbackRoutineBegin(snapshot));
     thisScheduler.add(RT_FeedbackRoutineEachFrame(snapshot));
     thisScheduler.add(RT_FeedbackRoutineEnd(snapshot));
-    thisScheduler.add(Post_Trial_HandRoutineBegin(snapshot));
-    thisScheduler.add(Post_Trial_HandRoutineEachFrame(snapshot));
-    thisScheduler.add(Post_Trial_HandRoutineEnd(snapshot));
+    thisScheduler.add(Post_TrialRoutineBegin(snapshot));
+    thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1634,7 +1671,7 @@ function TR_Bool_HandLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Bool_Hand = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: hand_tr, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $hand_tr, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Bool_Hand'
@@ -1643,8 +1680,9 @@ function TR_Bool_HandLoopBegin(thisScheduler) {
   currentLoop = TR_Bool_Hand;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Bool_Hand of TR_Bool_Hand) {
+  TR_Bool_Hand.forEach(function() {
     const snapshot = TR_Bool_Hand.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_TR_HandRoutineBegin(snapshot));
     thisScheduler.add(Instr_TR_HandRoutineEachFrame(snapshot));
@@ -1654,7 +1692,7 @@ function TR_Bool_HandLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Block_HandLoopScheduler);
     thisScheduler.add(TR_Block_HandLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1665,7 +1703,7 @@ function TR_Block_HandLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Block_Hand = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_block_hand, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_block_hand, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Block_Hand'
@@ -1674,8 +1712,9 @@ function TR_Block_HandLoopBegin(thisScheduler) {
   currentLoop = TR_Block_Hand;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Block_Hand of TR_Block_Hand) {
+  TR_Block_Hand.forEach(function() {
     const snapshot = TR_Block_Hand.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineBegin(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineEachFrame(snapshot));
@@ -1691,7 +1730,7 @@ function TR_Block_HandLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Hand_Accuracy_BoolRoutineEachFrame(snapshot));
     thisScheduler.add(TR_Hand_Accuracy_BoolRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1702,7 +1741,7 @@ function TR_Iter_HandLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Iter_Hand = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials_hand, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials_hand, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Iter_Hand'
@@ -1711,12 +1750,13 @@ function TR_Iter_HandLoopBegin(thisScheduler) {
   currentLoop = TR_Iter_Hand;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Iter_Hand of TR_Iter_Hand) {
+  TR_Iter_Hand.forEach(function() {
     const snapshot = TR_Iter_Hand.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
-    thisScheduler.add(Pre_Trial_HandRoutineBegin(snapshot));
-    thisScheduler.add(Pre_Trial_HandRoutineEachFrame(snapshot));
-    thisScheduler.add(Pre_Trial_HandRoutineEnd(snapshot));
+    thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
+    thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(Pre_TrialRoutineEnd(snapshot));
     thisScheduler.add(TR_Enter_Trials_HandRoutineBegin(snapshot));
     thisScheduler.add(TR_Enter_Trials_HandRoutineEachFrame(snapshot));
     thisScheduler.add(TR_Enter_Trials_HandRoutineEnd(snapshot));
@@ -1728,11 +1768,11 @@ function TR_Iter_HandLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Penalty_Bool_HandLoopBegin, TR_Penalty_Bool_HandLoopScheduler);
     thisScheduler.add(TR_Penalty_Bool_HandLoopScheduler);
     thisScheduler.add(TR_Penalty_Bool_HandLoopEnd);
-    thisScheduler.add(Post_Trial_HandRoutineBegin(snapshot));
-    thisScheduler.add(Post_Trial_HandRoutineEachFrame(snapshot));
-    thisScheduler.add(Post_Trial_HandRoutineEnd(snapshot));
+    thisScheduler.add(Post_TrialRoutineBegin(snapshot));
+    thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1743,7 +1783,7 @@ function TR_Feedback_Bool_HandLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Feedback_Bool_Hand = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_feedback, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_feedback, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Feedback_Bool_Hand'
@@ -1752,14 +1792,15 @@ function TR_Feedback_Bool_HandLoopBegin(thisScheduler) {
   currentLoop = TR_Feedback_Bool_Hand;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Feedback_Bool_Hand of TR_Feedback_Bool_Hand) {
+  TR_Feedback_Bool_Hand.forEach(function() {
     const snapshot = TR_Feedback_Bool_Hand.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(TR_FeedbackRoutineBegin(snapshot));
     thisScheduler.add(TR_FeedbackRoutineEachFrame(snapshot));
     thisScheduler.add(TR_FeedbackRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1777,7 +1818,7 @@ function TR_Penalty_Bool_HandLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Penalty_Bool_Hand = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_penalty, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_penalty, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Penalty_Bool_Hand'
@@ -1786,14 +1827,15 @@ function TR_Penalty_Bool_HandLoopBegin(thisScheduler) {
   currentLoop = TR_Penalty_Bool_Hand;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Penalty_Bool_Hand of TR_Penalty_Bool_Hand) {
+  TR_Penalty_Bool_Hand.forEach(function() {
     const snapshot = TR_Penalty_Bool_Hand.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(TR_PenaltyRoutineBegin(snapshot));
     thisScheduler.add(TR_PenaltyRoutineEachFrame(snapshot));
     thisScheduler.add(TR_PenaltyRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1832,7 +1874,7 @@ function CR_Old_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   CR_Old_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: cr_old, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $cr_old, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'CR_Old_Bool'
@@ -1841,8 +1883,9 @@ function CR_Old_BoolLoopBegin(thisScheduler) {
   currentLoop = CR_Old_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisCR_Old_Bool of CR_Old_Bool) {
+  CR_Old_Bool.forEach(function() {
     const snapshot = CR_Old_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_CR_OldRoutineBegin(snapshot));
     thisScheduler.add(Instr_CR_OldRoutineEachFrame(snapshot));
@@ -1855,7 +1898,7 @@ function CR_Old_BoolLoopBegin(thisScheduler) {
     thisScheduler.add(CR_Old_IterLoopScheduler);
     thisScheduler.add(CR_Old_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1866,7 +1909,7 @@ function CR_Old_IterLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   CR_Old_Iter = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials_cr, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials_cr, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'CR_Old_Iter'
@@ -1875,8 +1918,9 @@ function CR_Old_IterLoopBegin(thisScheduler) {
   currentLoop = CR_Old_Iter;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisCR_Old_Iter of CR_Old_Iter) {
+  CR_Old_Iter.forEach(function() {
     const snapshot = CR_Old_Iter.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
     thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
@@ -1894,7 +1938,7 @@ function CR_Old_IterLoopBegin(thisScheduler) {
     thisScheduler.add(Criterion_DetRoutineEachFrame(snapshot));
     thisScheduler.add(Criterion_DetRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1919,7 +1963,7 @@ function CR_New_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   CR_New_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: cr_new, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $cr_new, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'CR_New_Bool'
@@ -1928,8 +1972,9 @@ function CR_New_BoolLoopBegin(thisScheduler) {
   currentLoop = CR_New_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisCR_New_Bool of CR_New_Bool) {
+  CR_New_Bool.forEach(function() {
     const snapshot = CR_New_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_CR_NewRoutineBegin(snapshot));
     thisScheduler.add(Instr_CR_NewRoutineEachFrame(snapshot));
@@ -1942,7 +1987,7 @@ function CR_New_BoolLoopBegin(thisScheduler) {
     thisScheduler.add(CR_New_IterLoopScheduler);
     thisScheduler.add(CR_New_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -1953,7 +1998,7 @@ function CR_New_IterLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   CR_New_Iter = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials_cr, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials_cr, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'CR_New_Iter'
@@ -1962,8 +2007,9 @@ function CR_New_IterLoopBegin(thisScheduler) {
   currentLoop = CR_New_Iter;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisCR_New_Iter of CR_New_Iter) {
+  CR_New_Iter.forEach(function() {
     const snapshot = CR_New_Iter.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
     thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
@@ -1981,7 +2027,7 @@ function CR_New_IterLoopBegin(thisScheduler) {
     thisScheduler.add(Criterion_DetRoutineEachFrame(snapshot));
     thisScheduler.add(Criterion_DetRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2006,7 +2052,7 @@ function RT_Old_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_Old_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: rt_old, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $rt_old, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_Old_Bool'
@@ -2015,8 +2061,9 @@ function RT_Old_BoolLoopBegin(thisScheduler) {
   currentLoop = RT_Old_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_Old_Bool of RT_Old_Bool) {
+  RT_Old_Bool.forEach(function() {
     const snapshot = RT_Old_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_RT_OldRoutineBegin(snapshot));
     thisScheduler.add(Instr_RT_OldRoutineEachFrame(snapshot));
@@ -2026,7 +2073,7 @@ function RT_Old_BoolLoopBegin(thisScheduler) {
     thisScheduler.add(RT_Old_BlockLoopScheduler);
     thisScheduler.add(RT_Old_BlockLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2037,7 +2084,7 @@ function RT_Old_BlockLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_Old_Block = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: rt_old_block, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $rt_old_block, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_Old_Block'
@@ -2046,8 +2093,9 @@ function RT_Old_BlockLoopBegin(thisScheduler) {
   currentLoop = RT_Old_Block;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_Old_Block of RT_Old_Block) {
+  RT_Old_Block.forEach(function() {
     const snapshot = RT_Old_Block.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineBegin(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineEachFrame(snapshot));
@@ -2060,7 +2108,7 @@ function RT_Old_BlockLoopBegin(thisScheduler) {
     thisScheduler.add(RT_Old_IterLoopScheduler);
     thisScheduler.add(RT_Old_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2071,7 +2119,7 @@ function RT_Old_IterLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_Old_Iter = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_Old_Iter'
@@ -2080,8 +2128,9 @@ function RT_Old_IterLoopBegin(thisScheduler) {
   currentLoop = RT_Old_Iter;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_Old_Iter of RT_Old_Iter) {
+  RT_Old_Iter.forEach(function() {
     const snapshot = RT_Old_Iter.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
     thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
@@ -2096,7 +2145,7 @@ function RT_Old_IterLoopBegin(thisScheduler) {
     thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
     thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2128,7 +2177,7 @@ function RT_New_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_New_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: rt_new, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $rt_new, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_New_Bool'
@@ -2137,8 +2186,9 @@ function RT_New_BoolLoopBegin(thisScheduler) {
   currentLoop = RT_New_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_New_Bool of RT_New_Bool) {
+  RT_New_Bool.forEach(function() {
     const snapshot = RT_New_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_RT_NewRoutineBegin(snapshot));
     thisScheduler.add(Instr_RT_NewRoutineEachFrame(snapshot));
@@ -2148,7 +2198,7 @@ function RT_New_BoolLoopBegin(thisScheduler) {
     thisScheduler.add(RT_New_BlockLoopScheduler);
     thisScheduler.add(RT_New_BlockLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2159,7 +2209,7 @@ function RT_New_BlockLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_New_Block = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: rt_new_block, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $rt_new_block, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_New_Block'
@@ -2168,8 +2218,9 @@ function RT_New_BlockLoopBegin(thisScheduler) {
   currentLoop = RT_New_Block;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_New_Block of RT_New_Block) {
+  RT_New_Block.forEach(function() {
     const snapshot = RT_New_Block.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineBegin(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineEachFrame(snapshot));
@@ -2182,7 +2233,7 @@ function RT_New_BlockLoopBegin(thisScheduler) {
     thisScheduler.add(RT_New_IterLoopScheduler);
     thisScheduler.add(RT_New_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2193,7 +2244,7 @@ function RT_New_IterLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_New_Iter = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_New_Iter'
@@ -2202,8 +2253,9 @@ function RT_New_IterLoopBegin(thisScheduler) {
   currentLoop = RT_New_Iter;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_New_Iter of RT_New_Iter) {
+  RT_New_Iter.forEach(function() {
     const snapshot = RT_New_Iter.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
     thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
@@ -2218,7 +2270,7 @@ function RT_New_IterLoopBegin(thisScheduler) {
     thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
     thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2250,7 +2302,7 @@ function TR_Old_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Old_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_old, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_old, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Old_Bool'
@@ -2259,8 +2311,9 @@ function TR_Old_BoolLoopBegin(thisScheduler) {
   currentLoop = TR_Old_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Old_Bool of TR_Old_Bool) {
+  TR_Old_Bool.forEach(function() {
     const snapshot = TR_Old_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_TR_OldRoutineBegin(snapshot));
     thisScheduler.add(Instr_TR_OldRoutineEachFrame(snapshot));
@@ -2270,7 +2323,7 @@ function TR_Old_BoolLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Old_BlockLoopScheduler);
     thisScheduler.add(TR_Old_BlockLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2281,7 +2334,7 @@ function TR_Old_BlockLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Old_Block = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_old_block, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_old_block, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Old_Block'
@@ -2290,8 +2343,9 @@ function TR_Old_BlockLoopBegin(thisScheduler) {
   currentLoop = TR_Old_Block;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Old_Block of TR_Old_Block) {
+  TR_Old_Block.forEach(function() {
     const snapshot = TR_Old_Block.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineBegin(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineEachFrame(snapshot));
@@ -2304,7 +2358,7 @@ function TR_Old_BlockLoopBegin(thisScheduler) {
     thisScheduler.add(TR_Old_IterLoopScheduler);
     thisScheduler.add(TR_Old_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2315,7 +2369,7 @@ function TR_Old_IterLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Old_Iter = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Old_Iter'
@@ -2324,8 +2378,9 @@ function TR_Old_IterLoopBegin(thisScheduler) {
   currentLoop = TR_Old_Iter;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Old_Iter of TR_Old_Iter) {
+  TR_Old_Iter.forEach(function() {
     const snapshot = TR_Old_Iter.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
     thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
@@ -2345,7 +2400,7 @@ function TR_Old_IterLoopBegin(thisScheduler) {
     thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
     thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2356,7 +2411,7 @@ function TR_Feedback_Old_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Feedback_Old_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_feedback, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_feedback, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Feedback_Old_Bool'
@@ -2365,14 +2420,15 @@ function TR_Feedback_Old_BoolLoopBegin(thisScheduler) {
   currentLoop = TR_Feedback_Old_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Feedback_Old_Bool of TR_Feedback_Old_Bool) {
+  TR_Feedback_Old_Bool.forEach(function() {
     const snapshot = TR_Feedback_Old_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(TR_FeedbackRoutineBegin(snapshot));
     thisScheduler.add(TR_FeedbackRoutineEachFrame(snapshot));
     thisScheduler.add(TR_FeedbackRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2390,7 +2446,7 @@ function TR_Penalty_Old_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Penalty_Old_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_penalty, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_penalty, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Penalty_Old_Bool'
@@ -2399,14 +2455,15 @@ function TR_Penalty_Old_BoolLoopBegin(thisScheduler) {
   currentLoop = TR_Penalty_Old_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Penalty_Old_Bool of TR_Penalty_Old_Bool) {
+  TR_Penalty_Old_Bool.forEach(function() {
     const snapshot = TR_Penalty_Old_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(TR_PenaltyRoutineBegin(snapshot));
     thisScheduler.add(TR_PenaltyRoutineEachFrame(snapshot));
     thisScheduler.add(TR_PenaltyRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2445,7 +2502,7 @@ function TR_New_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_New_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_new, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_new, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_New_Bool'
@@ -2454,8 +2511,9 @@ function TR_New_BoolLoopBegin(thisScheduler) {
   currentLoop = TR_New_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_New_Bool of TR_New_Bool) {
+  TR_New_Bool.forEach(function() {
     const snapshot = TR_New_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_TR_NewRoutineBegin(snapshot));
     thisScheduler.add(Instr_TR_NewRoutineEachFrame(snapshot));
@@ -2465,7 +2523,7 @@ function TR_New_BoolLoopBegin(thisScheduler) {
     thisScheduler.add(TR_New_BlockLoopScheduler);
     thisScheduler.add(TR_New_BlockLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2476,7 +2534,7 @@ function TR_New_BlockLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_New_Block = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_new_block, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_new_block, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_New_Block'
@@ -2485,8 +2543,9 @@ function TR_New_BlockLoopBegin(thisScheduler) {
   currentLoop = TR_New_Block;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_New_Block of TR_New_Block) {
+  TR_New_Block.forEach(function() {
     const snapshot = TR_New_Block.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineBegin(snapshot));
     thisScheduler.add(Creat_StimSeqRoutineEachFrame(snapshot));
@@ -2499,7 +2558,7 @@ function TR_New_BlockLoopBegin(thisScheduler) {
     thisScheduler.add(TR_New_IterLoopScheduler);
     thisScheduler.add(TR_New_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2510,7 +2569,7 @@ function TR_New_IterLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_New_Iter = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: num_trials, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $num_trials, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_New_Iter'
@@ -2519,8 +2578,9 @@ function TR_New_IterLoopBegin(thisScheduler) {
   currentLoop = TR_New_Iter;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_New_Iter of TR_New_Iter) {
+  TR_New_Iter.forEach(function() {
     const snapshot = TR_New_Iter.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
     thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
@@ -2540,7 +2600,7 @@ function TR_New_IterLoopBegin(thisScheduler) {
     thisScheduler.add(Post_TrialRoutineEachFrame(snapshot));
     thisScheduler.add(Post_TrialRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2551,7 +2611,7 @@ function TR_Feedback_New_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Feedback_New_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_feedback, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_feedback, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Feedback_New_Bool'
@@ -2560,14 +2620,15 @@ function TR_Feedback_New_BoolLoopBegin(thisScheduler) {
   currentLoop = TR_Feedback_New_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Feedback_New_Bool of TR_Feedback_New_Bool) {
+  TR_Feedback_New_Bool.forEach(function() {
     const snapshot = TR_Feedback_New_Bool.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(TR_FeedbackRoutineBegin(snapshot));
     thisScheduler.add(TR_FeedbackRoutineEachFrame(snapshot));
     thisScheduler.add(TR_FeedbackRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2585,7 +2646,7 @@ function TR_Feedback_New_PenaltyLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   TR_Feedback_New_Penalty = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: tr_penalty, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: $tr_penalty, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'TR_Feedback_New_Penalty'
@@ -2594,14 +2655,15 @@ function TR_Feedback_New_PenaltyLoopBegin(thisScheduler) {
   currentLoop = TR_Feedback_New_Penalty;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisTR_Feedback_New_Penalty of TR_Feedback_New_Penalty) {
+  TR_Feedback_New_Penalty.forEach(function() {
     const snapshot = TR_Feedback_New_Penalty.getSnapshot();
+
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(TR_PenaltyRoutineBegin(snapshot));
     thisScheduler.add(TR_PenaltyRoutineEachFrame(snapshot));
     thisScheduler.add(TR_PenaltyRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
-  }
+  });
 
   return Scheduler.Event.NEXT;
 }
@@ -2645,6 +2707,7 @@ var stim_num_hand;
 var stim_num;
 var ctx_map;
 var ctx_color_map;
+var rng2;
 var j;
 var stim_key_map_rng;
 var finger_ctx1;
@@ -2664,84 +2727,87 @@ function Import_Stim_FileRoutineBegin(trials) {
     frameN = -1;
     // update component parameters for each repeat
     
-    StimList = Import_File.trialList;
+            // add-on: list(s: string): string[]
+            function list(s) {
+                // if s is a string, we return a list of its characters
+                if (typeof s === 'string')
+                    return s.split('');
+                else
+                    // otherwise we return s:
+                    return s;
+            }
+            
+            StimList = Import_File.trialList;
     stim_key_map_ctx1 = [];
     stim_key_map_ctx2 = [];
     feedback_p = StimList[0]["Check"];
     feedback_n = StimList[0]["Cross"];
-    //for (var i = 0, _pj_a = num_ctx; (i < _pj_a); i += 1) {
-    //    ctx_color_list.append(ctx_color_all[i]);
-    //}
-    //psychoJS.experiment.addData("Ctx_Color_List", ctx_color_list);
-
     for (var i = 0, _pj_a = num_ctx; (i < _pj_a); i += 1) {
-      ctx_color_list.append(StimList[i]["Ctx_Color"]);
+        ctx_color_list.append(ctx_color_all[i]);
     }
-
     hand_shape = StimList[0]["Hand"];
     stim_num_hand = [];
     for (var i = 0, _pj_a = num_pos; (i < _pj_a); i += 1) {
-        stim_num_hand.push(i);
+        stim_num_hand.append(i);
     }
     for (var i = 0, _pj_a = num_pos; (i < _pj_a); i += 1) {
-        x_pos.push(StimList[i]["X_Pos"]);
-        y_pos.push(StimList[i]["Y_Pos"]);
-        finger.push(StimList[i]["Key"]);
+        x_pos.append(StimList[i]["X_Pos"]);
+        y_pos.append(StimList[i]["Y_Pos"]);
+        finger.append(StimList[i]["Key"]);
     }
     stim_num = [];
     for (var i = 0, _pj_a = (num_symb * num_ctx); (i < _pj_a); i += 1) {
-        stim_num.push(i);
+        stim_num.append(i);
     }
     ctx_map = [];
     ctx_color_map = [];
-    
+    rng2 = 0.2;
     if ((grp === 1)) {
         j = 0;
         while ((j < num_ctx)) {
             for (var i = 0, _pj_a = num_symb; (i < _pj_a); i += 1) {
-                stim.push(StimList[i]["Stim"]);
-                image.push(StimList[i]["imStim"]);
-                key_num.push(StimList[i]["KeyNum"]);
+                stim.append(StimList[i]["Stim"]);
+                image.append(StimList[i]["imStim"]);
+                key_num.append(StimList[i]["KeyNum"]);
             }
             j = (j + 1);
             for (var i = 0, _pj_a = (num_symb * num_ctx); (i < _pj_a); i += 1) {
                 if ((i < num_symb)) {
-                    ctx_color_map.push(ctx_color_list[0]);
-                    ctx_map.push(ctx_list[0]);
+                    ctx_color_map.append(ctx_color_list[0]);
+                    ctx_map.append(ctx_list[0]);
                 } else {
-                    ctx_color_map.push(ctx_color_list[1]);
-                    ctx_map.push(ctx_list[1]);
+                    ctx_color_map.append(ctx_color_list[1]);
+                    ctx_map.append(ctx_list[1]);
                 }
             }
         }
     } else {
         if (((grp === 2) || (grp === 3))) {
             for (var i = 0, _pj_a = (num_symb * num_ctx); (i < _pj_a); i += 1) {
-                stim.push(StimList[i]["Stim"]);
-                image.push(StimList[i]["imStim"]);
-                key_num.push(StimList[i]["KeyNum"]);
+                stim.append(StimList[i]["Stim"]);
+                image.append(StimList[i]["imStim"]);
+                key_num.append(StimList[i]["KeyNum"]);
                 if ((rng2 < 0.5)) {
                     if ((i < num_symb)) {
-                        ctx_color_map.push(ctx_color_list[0]);
-                        ctx_map.push(ctx_list[0]);
+                        ctx_color_map.append(ctx_color_list[0]);
+                        ctx_map.append(ctx_list[0]);
                     } else {
-                        ctx_color_map.push(ctx_color_list[1]);
-                        ctx_map.push(ctx_list[1]);
+                        ctx_color_map.append(ctx_color_list[1]);
+                        ctx_map.append(ctx_list[1]);
                     }
                 } else {
                     if ((i < num_symb)) {
-                        ctx_color_map.push(ctx_color_list[1]);
-                        ctx_map.push(ctx_list[1]);
+                        ctx_color_map.append(ctx_color_list[1]);
+                        ctx_map.append(ctx_list[1]);
                     } else {
-                        ctx_color_map.push(ctx_color_list[0]);
-                        ctx_map.push(ctx_list[0]);
+                        ctx_color_map.append(ctx_color_list[0]);
+                        ctx_map.append(ctx_list[0]);
                     }
                 }
             }
         }
     }
-
-    stim_key_map_rng = rng3;
+    stim_key_map_rng = 0.2;
     if ((stim_key_map_rng < 0.5)) {
         stim_key_map_ctx1 = stim_key_perm[0];
         stim_key_map_ctx2 = stim_key_perm[1];
@@ -2752,30 +2818,30 @@ function Import_Stim_FileRoutineBegin(trials) {
     finger_ctx1 = [];
     finger_ctx2 = [];
     for (var i = 0, _pj_a = num_symb; (i < _pj_a); i += 1) {
-        finger_ctx1.push(finger[stim_key_map_ctx1[i]]);
-        finger_ctx2.push(finger[stim_key_map_ctx2[i]]);
+        finger_ctx1.append(finger[stim_key_map_ctx1[i]]);
+        finger_ctx2.append(finger[stim_key_map_ctx2[i]]);
     }
-    psychoJS.experiment.addData("stim_key_map_ctx1", stim_key_map_ctx1);
-    psychoJS.experiment.addData("stim_key_map_ctx2", stim_key_map_ctx2);
-    finger_map = finger_ctx1.concat(finger_ctx2);
+    thisExp.addData("stim_key_map_ctx1", stim_key_map_ctx1);
+    thisExp.addData("stim_key_map_ctx2", stim_key_map_ctx2);
+    finger_map = (finger_ctx1 + finger_ctx2);
     if ((grp === 1)) {
-        stim_key_remap_ctx1 = Object.assign({}, stim_key_map_ctx2);
-        stim_key_remap_ctx2 = Object.assign({}, stim_key_map_ctx1);
+        stim_key_remap_ctx1 = list(stim_key_map_ctx2);
+        stim_key_remap_ctx2 = list(stim_key_map_ctx1);
     } else {
         if ((grp === 3)) {
-            stim_key_remap_ctx2 = Object.assign({}, stim_key_map_ctx1);
-            stim_key_remap_ctx1 = Object.assign({}, stim_key_map_ctx2);
+            stim_key_remap_ctx2 = list(stim_key_map_ctx1);
+            stim_key_remap_ctx1 = list(stim_key_map_ctx2);
         } else {
             if ((grp === 2)) {
-                stim_key_remap_ctx2 = Object.assign({}, stim_key_map_ctx1);
-                stim_key_remap_ctx1 = Object.assign({}, stim_key_map_ctx2);
+                stim_key_remap_ctx2 = list(stim_key_map_ctx1);
+                stim_key_remap_ctx1 = list(stim_key_map_ctx2);
                 for (var i = 0, _pj_a = (num_symb * num_ctx); (i < _pj_a); i += 1) {
                     if ((i < num_symb)) {
-                        ctx_color_remap.push(ctx_color_list[1]);
-                        ctx_remap.push(ctx_list[1]);
+                        ctx_color_remap.append(ctx_color_list[1]);
+                        ctx_remap.append(ctx_list[1]);
                     } else {
-                        ctx_color_remap.push(ctx_color_list[0]);
-                        ctx_remap.push(ctx_list[0]);
+                        ctx_color_remap.append(ctx_color_list[0]);
+                        ctx_remap.append(ctx_list[0]);
                     }
                 }
             }
@@ -2784,19 +2850,20 @@ function Import_Stim_FileRoutineBegin(trials) {
     finger_remap_ctx1 = [];
     finger_remap_ctx2 = [];
     for (var i = 0, _pj_a = num_symb; (i < _pj_a); i += 1) {
-        finger_remap_ctx1.push(finger[stim_key_remap_ctx1[i]]);
-        finger_remap_ctx2.push(finger[stim_key_remap_ctx2[i]]);
+        finger_remap_ctx1.append(finger[stim_key_remap_ctx1[i]]);
+        finger_remap_ctx2.append(finger[stim_key_remap_ctx2[i]]);
     }
-    psychoJS.experiment.addData("stim_key_remap_ctx1", stim_key_remap_ctx1);
-    psychoJS.experiment.addData("stim_key_remap_ctx2", stim_key_remap_ctx2);
-    finger_remap = finger_remap_ctx1.concat(finger_remap_ctx2);
+    thisExp.addData("stim_key_remap_ctx1", stim_key_remap_ctx1);
+    thisExp.addData("stim_key_remap_ctx2", stim_key_remap_ctx2);
+    finger_remap = (finger_remap_ctx1 + finger_remap_ctx2);
     
     // keep track of which components have finished
     Import_Stim_FileComponents = [];
     
-    for (const thisComponent of Import_Stim_FileComponents)
+    Import_Stim_FileComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -2823,11 +2890,11 @@ function Import_Stim_FileRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Import_Stim_FileComponents)
+    Import_Stim_FileComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -2855,92 +2922,90 @@ var feedback_good_text;
 function Import_Stim_FileRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Import_Stim_File'-------
-    for (const thisComponent of Import_Stim_FileComponents) {
+    Import_Stim_FileComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     instr_rt_text_hand = `The upcoming three blocks are used to be familiar with the task.
     
-With your Right hand, place your Index, Middle, Ring, and Pinky fingers on (H, U) respectively. Your fingers will rest on these keys for the entirety of the experiment.
+    With your Right hand, place your Index, Middle, Ring, and Pinky fingers on (H, U) respectively. Your fingers will rest on these keys for the entirety of the experiment.
     
-You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
+    You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
     
-Ready? Press one of (H, U) to continue.`
+    Ready? Press one of these keys to continue.`
     ;
     instr_tr_text_hand = `Great Job!
     
-Now, you need to press the corresponding finger when the larger white ring intersects the smaller grey ring. Sometimes, the finger will light up at the very last second. You will not have enough time to know which finger to press. In this case, MAKE A GUESS. Always press one of your fingers when two rings intersect.
+    Now, you need to press the corresponding finger when the larger white ring intersects the smaller grey ring. Sometimes, the finger will light up at the very last second. You will not have enough time to know which finger to press. In this case, MAKE A GUESS. Always press one of your fingers when two rings intersect.
     
-Let’s practice! Press one of (H, U) to continue.`
+    Let’s practice! Press one of the keys to continue.`
     ;
     instr_cr_old_text = `Good Job! You are now ready for the tasks!
     
-You will see four symbols on the screen. Each symbol corresponds to one of the keys (H, U). Your job is to figure out which symbol corresponds with which key.
-
-ACCURACY is the priority, so go as slowly as you need to. The more mistakes you make, the longer this block will take.
+    You will see four symbols on the screen. Each symbol corresponds to one of the keys (H, U). Your job is to figure out which symbol corresponds with which key.
+    ACCURACY is the priority, so go as slowly as you need to. The more mistakes you make, the longer this block will take.
     
-Ready? Press one of (H, U) to continue.`
+    Ready? Press one of the keys to continue.`
     ;
     instr_cr_new_text = `Congratulations!
     
-Now, the background will change to another color. You need to learn a new map bewtween those four symbols and four keys.
+    Now, the background will change to another color. You need to learn a new map bewtween those four symbols and four keys.
+    Again, ACCURACY is the priority, so go as slowly as you need to. The more mistaks you make, the longer this block will take.
     
-Again, ACCURACY is the priority, so go as slowly as you need to. The more mistaks you make, the longer this block will take.
-    
-When you are ready, press one of (H, U) to continue.`
+    When you are ready, press one of the keys to continue.`
     ;
     if ((session === 1)) {
         instr_rt_old_text = `Now using the maps that you just learned, your job is to press the corresponding key as quickly and as accurately as possible.
     
-There will be ${rt_old_block} blocks with short breaks in between.
+    There will be ${rt_old_block} blocks with short breaks in between.
     
-Whenever you are ready, press one of (H, U) to start.`
+    Whenever you are ready, press one of the keys to start.`
     ;
     } else {
         if (((1 < session) && (session < 6))) {
             instr_rt_old_text = `Today, we continue to practice the symbol-key maps you learned.
     
-There are ${rt_old_block} blocks today. Remember, your job is to press the corresponding key as quickly and accurately as you can.
+    There are ${rt_old_block} blocks today. Remember, your job is to press the corresponding key as quickly and accurately as you can.
     
-Ready? Press one of (H, U) to start.`
+    Ready? Press one of the keys to start.`
     ;
         } else {
             if ((session > 5)) {
                 instr_rt_old_text = `Today, we first continue to practice the symbol-key maps for ${rt_old_block} blocks.
     
-Remember, your job is to press the corresponding key as quickly and accurately as you can.
+    Remember, your job is to press the corresponding key as quickly and accurately as you can.
     
-Whenever you are ready, press one of (H, U) to start.`
+    Whenever you are ready, press one of the keys to start.`
     ;
             }
         }
     }
     instr_rt_new_text = `Now using the maps that you just learned, your job is to press the corresponding key as quickly and as accurately as possible.
     
-There will be ${rt_old_block} blocks with short breaks in between.
+    There will be ${rt_old_block} blocks with short breaks in between.
     
-Whenever you are ready, press one of (H, U) to start.`
+    Whenever you are ready, press one of the keys to start.`
     ;
     instr_tr_old_text = `Good job so far.
     
-In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
+    In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
     
-Press one of (H, U) to start.`
+    Press one of the keys to start.`
     ;
     instr_tr_new_text = `Good job so far.
     
-In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
+    In the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
     
-Press one of (H, U) to start.`
+    Press one of the keys to start.`
     ;
-    penalty_toolate_text = `Response was too late
-  2 second penalty
-  After 2 second, press one of (H, U) to continue`
+    penalty_toolate_text = `Response was too late.
+    2 second penalty.
+    After 2 second, press one of the keys to continue.`
     ;
-    penalty_tooearly_text = `Response was too early
-  2 second penalty
-  After 2 second, press one of (H, U) to continue`
+    penalty_tooearly_text = `Response was too early.
+    2 second penalty.
+    After 2 second, press one of the keys to continue.`
     ;
     feedback_early_text = `little early`;
     feedback_late_text = `little late`;
@@ -2971,9 +3036,10 @@ function Instr_ExpRoutineBegin(trials) {
     Instr_ExpComponents.push(Instr_Exp_Text);
     Instr_ExpComponents.push(Instr_Exp_Key);
     
-    for (const thisComponent of Instr_ExpComponents)
+    Instr_ExpComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -3033,11 +3099,11 @@ function Instr_ExpRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_ExpComponents)
+    Instr_ExpComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -3052,11 +3118,11 @@ function Instr_ExpRoutineEachFrame(trials) {
 function Instr_ExpRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_Exp'-------
-    for (const thisComponent of Instr_ExpComponents) {
+    Instr_ExpComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_Exp_Key.keys', Instr_Exp_Key.keys);
     if (typeof Instr_Exp_Key.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_Exp_Key.rt', Instr_Exp_Key.rt);
@@ -3074,6 +3140,7 @@ function Instr_ExpRoutineEnd(trials) {
 
 var stim_type;
 var block_count;
+var hand_opacity;
 var _Instr_RT_Hand_Key_allKeys;
 var Instr_RT_HandComponents;
 function Instr_RT_HandRoutineBegin(trials) {
@@ -3087,6 +3154,7 @@ function Instr_RT_HandRoutineBegin(trials) {
     stim_type = "Hand";
     remap = 0;
     block_count = 0;
+    hand_opacity = 1;
     
     Instr_RT_Hand_Rext.setText(instr_rt_text_hand);
     Instr_RT_Hand_Key.keys = undefined;
@@ -3097,9 +3165,10 @@ function Instr_RT_HandRoutineBegin(trials) {
     Instr_RT_HandComponents.push(Instr_RT_Hand_Rext);
     Instr_RT_HandComponents.push(Instr_RT_Hand_Key);
     
-    for (const thisComponent of Instr_RT_HandComponents)
+    Instr_RT_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -3159,11 +3228,11 @@ function Instr_RT_HandRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_RT_HandComponents)
+    Instr_RT_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -3178,11 +3247,11 @@ function Instr_RT_HandRoutineEachFrame(trials) {
 function Instr_RT_HandRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_RT_Hand'-------
-    for (const thisComponent of Instr_RT_HandComponents) {
+    Instr_RT_HandComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_RT_Hand_Key.keys', Instr_RT_Hand_Key.keys);
     if (typeof Instr_RT_Hand_Key.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_RT_Hand_Key.rt', Instr_RT_Hand_Key.rt);
@@ -3208,12 +3277,8 @@ var seq_handy;
 var seq_finger_hand;
 var seq_key_num_hand;
 var seq_stim_num_hand;
-var seq_ctx_color;
-var seq_key_num;
-var seq_stim_num;
 var total_num_trials;
 var Creat_StimSeqComponents;
-
 function Creat_StimSeqRoutineBegin(trials) {
   return function () {
     //------Prepare to start Routine 'Creat_StimSeq'-------
@@ -3224,7 +3289,7 @@ function Creat_StimSeqRoutineBegin(trials) {
     trial_count = 0;
     trial_count_item = [];
     for (var i = 0, _pj_a = (num_symb * num_ctx); (i < _pj_a); i += 1) {
-        trial_count_item.push(0);
+        trial_count_item.append(0);
     }
     repeat_count = 0;
     tr_timing_good = 0;
@@ -3247,32 +3312,32 @@ function Creat_StimSeqRoutineBegin(trials) {
     if ((stim_type === "Hand")) {
         count = 0;
         while ((count < (num_trials_hand / 10))) {
-            util.shuffle(x2_hand);
+            shuffle(x2_hand);
             for (var i, _pj_c = 0, _pj_a = x2_hand, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 i = _pj_a[_pj_c];
-                seq_handx.push(x_pos[i]);
-                seq_handy.push(y_pos[i]);
-                seq_finger_hand.push(finger[i]);
-                seq_key_num_hand.push(key_num[i]);
-                seq_stim_num_hand.push(stim_num_hand[i]);
+                seq_handx.append(x_pos[i]);
+                seq_handy.append(y_pos[i]);
+                seq_finger_hand.append(finger[i]);
+                seq_key_num_hand.append(key_num[i]);
+                seq_stim_num_hand.append(stim_num_hand[i]);
             }
-            util.shuffle(x2_hand);
+            shuffle(x2_hand);
             for (var i, _pj_c = 0, _pj_a = x2_hand, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 i = _pj_a[_pj_c];
-                seq_handx.push(x_pos[i]);
-                seq_handy.push(y_pos[i]);
-                seq_finger_hand.push(finger[i]);
-                seq_key_num_hand.push(key_num[i]);
-                seq_stim_num_hand.push(stim_num_hand[i]);
+                seq_handx.append(x_pos[i]);
+                seq_handy.append(y_pos[i]);
+                seq_finger_hand.append(finger[i]);
+                seq_key_num_hand.append(key_num[i]);
+                seq_stim_num_hand.append(stim_num_hand[i]);
             }
-            util.shuffle(x_hand);
+            shuffle(x_hand);
             for (var i, _pj_c = 0, _pj_a = x_hand, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 i = _pj_a[_pj_c];
-                seq_handx.push(x_pos[i]);
-                seq_handy.push(y_pos[i]);
-                seq_finger_hand.push(finger[i]);
-                seq_key_num_hand.push(key_num[i]);
-                seq_stim_num_hand.push(stim_num_hand[i]);
+                seq_handx.append(x_pos[i]);
+                seq_handy.append(y_pos[i]);
+                seq_finger_hand.append(finger[i]);
+                seq_key_num_hand.append(key_num[i]);
+                seq_stim_num_hand.append(stim_num_hand[i]);
             }
             count = (count + 1);
         }
@@ -3287,38 +3352,38 @@ function Creat_StimSeqRoutineBegin(trials) {
     }
     count = 0;
     while ((count < (total_num_trials / 20))) {
-        util.shuffle(x2);
+        shuffle(x2);
         for (var i, _pj_c = 0, _pj_a = x2, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
             i = _pj_a[_pj_c];
-            seq_stim.push(stim[i]);
-            seq_finger.push(finger[i]);
-            seq_image.push(image[i]);
-            seq_ctx.push(ctx[i]);
-            seq_ctx_color.push(ctx_color[i]);
-            seq_key_num.push(key_num[i]);
-            seq_stim_num.push(stim_num[i]);
+            seq_stim.append(stim[i]);
+            seq_finger.append(finger[i]);
+            seq_image.append(image[i]);
+            seq_ctx.append(ctx[i]);
+            seq_ctx_color.append(ctx_color[i]);
+            seq_key_num.append(key_num[i]);
+            seq_stim_num.append(stim_num[i]);
         }
-        util.shuffle(x2);
+        shuffle(x2);
         for (var i, _pj_c = 0, _pj_a = x2, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
             i = _pj_a[_pj_c];
-            seq_stim.push(stim[i]);
-            seq_finger.push(finger[i]);
-            seq_image.push(image[i]);
-            seq_ctx.push(ctx[i]);
-            seq_ctx_color.push(ctx_color[i]);
-            seq_key_num.push(key_num[i]);
-            seq_stim_num.push(stim_num[i]);
+            seq_stim.append(stim[i]);
+            seq_finger.append(finger[i]);
+            seq_image.append(image[i]);
+            seq_ctx.append(ctx[i]);
+            seq_ctx_color.append(ctx_color[i]);
+            seq_key_num.append(key_num[i]);
+            seq_stim_num.append(stim_num[i]);
         }
-        util.shuffle(x);
+        shuffle(x);
         for (var i, _pj_c = 0, _pj_a = x, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
             i = _pj_a[_pj_c];
-            seq_stim.push(stim[i]);
-            seq_finger.push(finger[i]);
-            seq_image.push(image[i]);
-            seq_ctx.push(ctx[i]);
-            seq_ctx_color.push(ctx_color[i]);
-            seq_key_num.push(key_num[i]);
-            seq_stim_num.push(stim_num[i]);
+            seq_stim.append(stim[i]);
+            seq_finger.append(finger[i]);
+            seq_image.append(image[i]);
+            seq_ctx.append(ctx[i]);
+            seq_ctx_color.append(ctx_color[i]);
+            seq_key_num.append(key_num[i]);
+            seq_stim_num.append(stim_num[i]);
         }
         count = (count + 1);
     }
@@ -3326,9 +3391,10 @@ function Creat_StimSeqRoutineBegin(trials) {
     // keep track of which components have finished
     Creat_StimSeqComponents = [];
     
-    for (const thisComponent of Creat_StimSeqComponents)
+    Creat_StimSeqComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -3354,11 +3420,11 @@ function Creat_StimSeqRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Creat_StimSeqComponents)
+    Creat_StimSeqComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -3373,11 +3439,11 @@ function Creat_StimSeqRoutineEachFrame(trials) {
 function Creat_StimSeqRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Creat_StimSeq'-------
-    for (const thisComponent of Creat_StimSeqComponents) {
+    Creat_StimSeqComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     block_count = (block_count + 1);
     
     // the Routine "Creat_StimSeq" was not non-slip safe, so reset the non-slip timer
@@ -3387,30 +3453,26 @@ function Creat_StimSeqRoutineEnd(trials) {
   };
 }
 
-var stim_item;     
-var image_item;
-var ctx_item;
-var ctx_color_item;
-var key_item;
-var stim_num_item;
+
 var x_item;
 var finger_item;
 var y_item;
+var key_item;
+var stim_num_item;
 var stim_start_time;
 var prep_time;
-var ctx_start_time;
 var position_item;
 var stim_hand;
-var Pre_Trial_HandComponents;
-function Pre_Trial_HandRoutineBegin(trials) {
+var Pre_TrialComponents;
+function Pre_TrialRoutineBegin(trials) {
   return function () {
-    //------Prepare to start Routine 'Pre_Trial_Hand'-------
+    //------Prepare to start Routine 'Pre_Trial'-------
     t = 0;
-    Pre_Trial_HandClock.reset(); // clock
+    Pre_TrialClock.reset(); // clock
     frameN = -1;
     // update component parameters for each repeat
-    Pre_Trial_Circle_Frame_Hand.setLineColor(new util.Color(circle_frame_color));
-    Pre_Trial_Circle_Frame_Hand.setLineWidth(circle_wd);
+    Pre_Trial_Circle_Frame.setLineColor(new util.Color(circle_frame_color));
+    Pre_Trial_Circle_Frame.setLineWidth(circle_wd);
     if ((stim_type === "Hand")) {
         x_item = seq_handx[trial_count];
         finger_item = seq_finger_hand[trial_count];
@@ -3418,7 +3480,7 @@ function Pre_Trial_HandRoutineBegin(trials) {
         key_item = seq_key_num_hand[trial_count];
         stim_num_item = seq_stim_num_hand[trial_count];
         if ((block_type === "TR")) {
-            stim_start_time = ((Math.random() * ((time_limit - too_late_tol) - prep_time_range[0])) + ((time_limit - too_late_tol) - prep_time_range[1]));
+            stim_start_time = ((random() * ((time_limit - too_late_tol) - prep_time_range[0])) + ((time_limit - too_late_tol) - prep_time_range[1]));
             prep_time = ((time_limit - too_late_tol) - stim_start_time);
         } else {
             stim_start_time = 0;
@@ -3450,7 +3512,7 @@ function Pre_Trial_HandRoutineBegin(trials) {
         stim_num_item = seq_stim_num[trial_count];
         if ((block_type === "TR")) {
             interval_ind = prep_time_ind[stim_num_item][trial_count_item[stim_num_item]];
-            prep_time = ((Math.random() * (prep_time_interval[interval_ind][1] - prep_time_interval[interval_ind][0])) + prep_time_interval[interval_ind][0]);
+            prep_time = ((random() * (prep_time_interval[interval_ind][1] - prep_time_interval[interval_ind][0])) + prep_time_interval[interval_ind][0]);
             stim_start_time = (prep_time_range[1] - prep_time);
             trial_count_item[stim_num_item] = (trial_count_item[stim_num_item] + 1);
             ctx_start_time = 0;
@@ -3460,16 +3522,20 @@ function Pre_Trial_HandRoutineBegin(trials) {
             ctx_start_time = 0;
         }
     }
+    console.log(prep_time);
+    console.log(trial_count_item);
     
+    Pre_Trial_HandShape.setOpacity(hand_opacity);
     Pre_Trial_HandShape.setImage(hand_shape);
     // keep track of which components have finished
-    Pre_Trial_HandComponents = [];
-    Pre_Trial_HandComponents.push(Pre_Trial_Circle_Frame_Hand);
-    Pre_Trial_HandComponents.push(Pre_Trial_HandShape);
+    Pre_TrialComponents = [];
+    Pre_TrialComponents.push(Pre_Trial_Circle_Frame);
+    Pre_TrialComponents.push(Pre_Trial_HandShape);
     
-    for (const thisComponent of Pre_Trial_HandComponents)
+    Pre_TrialComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -3477,27 +3543,27 @@ function Pre_Trial_HandRoutineBegin(trials) {
 
 
 var frameRemains;
-function Pre_Trial_HandRoutineEachFrame(trials) {
+function Pre_TrialRoutineEachFrame(trials) {
   return function () {
-    //------Loop for each frame of Routine 'Pre_Trial_Hand'-------
+    //------Loop for each frame of Routine 'Pre_Trial'-------
     let continueRoutine = true; // until we're told otherwise
     // get current time
-    t = Pre_Trial_HandClock.getTime();
+    t = Pre_TrialClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
     
-    // *Pre_Trial_Circle_Frame_Hand* updates
-    if (t >= 0.0 && Pre_Trial_Circle_Frame_Hand.status === PsychoJS.Status.NOT_STARTED) {
+    // *Pre_Trial_Circle_Frame* updates
+    if (t >= 0.0 && Pre_Trial_Circle_Frame.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      Pre_Trial_Circle_Frame_Hand.tStart = t;  // (not accounting for frame time here)
-      Pre_Trial_Circle_Frame_Hand.frameNStart = frameN;  // exact frame index
+      Pre_Trial_Circle_Frame.tStart = t;  // (not accounting for frame time here)
+      Pre_Trial_Circle_Frame.frameNStart = frameN;  // exact frame index
       
-      Pre_Trial_Circle_Frame_Hand.setAutoDraw(true);
+      Pre_Trial_Circle_Frame.setAutoDraw(true);
     }
 
     frameRemains = 0.0 + pre_trial_dur - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
-    if (Pre_Trial_Circle_Frame_Hand.status === PsychoJS.Status.STARTED && t >= frameRemains) {
-      Pre_Trial_Circle_Frame_Hand.setAutoDraw(false);
+    if (Pre_Trial_Circle_Frame.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      Pre_Trial_Circle_Frame.setAutoDraw(false);
     }
     
     // *Pre_Trial_HandShape* updates
@@ -3524,11 +3590,11 @@ function Pre_Trial_HandRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Pre_Trial_HandComponents)
+    Pre_TrialComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -3540,15 +3606,15 @@ function Pre_Trial_HandRoutineEachFrame(trials) {
 }
 
 
-function Pre_Trial_HandRoutineEnd(trials) {
+function Pre_TrialRoutineEnd(trials) {
   return function () {
-    //------Ending Routine 'Pre_Trial_Hand'-------
-    for (const thisComponent of Pre_Trial_HandComponents) {
+    //------Ending Routine 'Pre_Trial'-------
+    Pre_TrialComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
-    // the Routine "Pre_Trial_Hand" was not non-slip safe, so reset the non-slip timer
+    });
+    // the Routine "Pre_Trial" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
     return Scheduler.Event.NEXT;
@@ -3580,9 +3646,10 @@ function RT_Enter_Trial_HandRoutineBegin(trials) {
     RT_Enter_Trial_HandComponents.push(RT_HandShape);
     RT_Enter_Trial_HandComponents.push(RT_Stim_Hand);
     
-    for (const thisComponent of RT_Enter_Trial_HandComponents)
+    RT_Enter_Trial_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -3668,11 +3735,11 @@ function RT_Enter_Trial_HandRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of RT_Enter_Trial_HandComponents)
+    RT_Enter_Trial_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -3692,11 +3759,11 @@ var press;
 function RT_Enter_Trial_HandRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'RT_Enter_Trial_Hand'-------
-    for (const thisComponent of RT_Enter_Trial_HandComponents) {
+    RT_Enter_Trial_HandComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     if (RT_Press_Hand.corr) {
         feedback_dur = 0.3;
         feedback = feedback_p;
@@ -3754,9 +3821,10 @@ function RT_FeedbackRoutineBegin(trials) {
     RT_FeedbackComponents.push(RT_Circle_Frame_Feedback);
     RT_FeedbackComponents.push(RT_Feedback_Image);
     
-    for (const thisComponent of RT_FeedbackComponents)
+    RT_FeedbackComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -3810,11 +3878,11 @@ function RT_FeedbackRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of RT_FeedbackComponents)
+    RT_FeedbackComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -3829,11 +3897,11 @@ function RT_FeedbackRoutineEachFrame(trials) {
 function RT_FeedbackRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'RT_Feedback'-------
-    for (const thisComponent of RT_FeedbackComponents) {
+    RT_FeedbackComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     // the Routine "RT_Feedback" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
@@ -3841,78 +3909,81 @@ function RT_FeedbackRoutineEnd(trials) {
   };
 }
 
-var Post_Trial_HandComponents;
-function Post_Trial_HandRoutineBegin(trials) {
+
+var Post_TrialComponents;
+function Post_TrialRoutineBegin(trials) {
   return function () {
-    //------Prepare to start Routine 'Post_Trial_Hand'-------
+    //------Prepare to start Routine 'Post_Trial'-------
     t = 0;
-    Post_Trial_HandClock.reset(); // clock
+    Post_TrialClock.reset(); // clock
     frameN = -1;
     // update component parameters for each repeat
-    Post_Trial_Circle_Frame_Hand.setLineColor(new util.Color(circle_frame_color));
-    Post_Trial_Circle_Frame_Hand.setLineWidth(circle_wd);
+    Post_Trial_Circle_Frame.setLineColor(new util.Color(circle_frame_color));
+    Post_Trial_Circle_Frame.setLineWidth(circle_wd);
     if ((stim_type === "Hand")) {
-        psychoJS.experiment.addData("Symbol", stim_hand);
-        psychoJS.experiment.addData("Ctx", 0);
-        psychoJS.experiment.addData("Color", [99, 99, 99]);
+        thisExp.addData("Symbol", stim_hand);
+        thisExp.addData("Ctx", 0);
+        thisExp.addData("Color", [99, 99, 99]);
     } else {
-        psychoJS.experiment.addData("Symbol", stim_item);
-        psychoJS.experiment.addData("Shape", image_item);
-        psychoJS.experiment.addData("Ctx", ctx_item);
-        psychoJS.experiment.addData("Color", ctx_color_item);
+        thisExp.addData("Symbol", stim_item);
+        thisExp.addData("Shape", image_item);
+        thisExp.addData("Ctx", ctx_item);
+        thisExp.addData("Color", ctx_color_item);
     }
-    psychoJS.experiment.addData("Stim_Num", stim_num_item);
-    psychoJS.experiment.addData("Key_Num", key_item);
-    psychoJS.experiment.addData("Stim_Type", stim_type);
-    psychoJS.experiment.addData("Finger", finger_item);
-    psychoJS.experiment.addData("Block_Type", block_type);
-    psychoJS.experiment.addData("Remap", remap);
-    psychoJS.experiment.addData("Repeat_Count", repeat_count);
-    psychoJS.experiment.addData("Trial_Count", trial_count);
-    psychoJS.experiment.addData("Grp", grp);
-    psychoJS.experiment.addData("Block_Num", block_count);
-    psychoJS.experiment.addData("Prep_Time", prep_time);
-    psychoJS.experiment.addData("Actual_Press", press);
-    psychoJS.experiment.addData("Correct", corr);
-    psychoJS.experiment.addData("RT", rt);
-    psychoJS.experiment.addData("Session", session);
+    thisExp.addData("Stim_Num", stim_num_item);
+    thisExp.addData("Key_Num", key_item);
+    thisExp.addData("Stim_Type", stim_type);
+    thisExp.addData("Finger", finger_item);
+    thisExp.addData("Block_Type", block_type);
+    thisExp.addData("Remap", remap);
+    thisExp.addData("Repeat_Count", repeat_count);
+    thisExp.addData("Trial_Count", trial_count);
+    thisExp.addData("Grp", grp);
+    thisExp.addData("Block_Num", block_count);
+    thisExp.addData("Prep_Time", prep_time);
+    thisExp.addData("Actual_Press", press);
+    thisExp.addData("RT", rt);
+    thisExp.addData("Correct", corr);
+    thisExp.addData("Session", session);
     
+    Post_Trial_HandShape.setOpacity(hand_opacity);
     Post_Trial_HandShape.setImage(hand_shape);
     // keep track of which components have finished
-    Post_Trial_HandComponents = [];
-    Post_Trial_HandComponents.push(Post_Trial_Circle_Frame_Hand);
-    Post_Trial_HandComponents.push(Post_Trial_HandShape);
+    Post_TrialComponents = [];
+    Post_TrialComponents.push(Post_Trial_Circle_Frame);
+    Post_TrialComponents.push(Post_Trial_HandShape);
     
-    for (const thisComponent of Post_Trial_HandComponents)
+    Post_TrialComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
 }
 
 
-function Post_Trial_HandRoutineEachFrame(trials) {
+function Post_TrialRoutineEachFrame(trials) {
   return function () {
-    //------Loop for each frame of Routine 'Post_Trial_Hand'-------
+    //------Loop for each frame of Routine 'Post_Trial'-------
     let continueRoutine = true; // until we're told otherwise
     // get current time
-    t = Post_Trial_HandClock.getTime();
+    t = Post_TrialClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
     
-    // *Post_Trial_Circle_Frame_Hand* updates
-    if (t >= 0.0 && Post_Trial_Circle_Frame_Hand.status === PsychoJS.Status.NOT_STARTED) {
+    // *Post_Trial_Circle_Frame* updates
+    if (t >= 0.0 && Post_Trial_Circle_Frame.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      Post_Trial_Circle_Frame_Hand.tStart = t;  // (not accounting for frame time here)
-      Post_Trial_Circle_Frame_Hand.frameNStart = frameN;  // exact frame index
+      Post_Trial_Circle_Frame.tStart = t;  // (not accounting for frame time here)
+      Post_Trial_Circle_Frame.frameNStart = frameN;  // exact frame index
       
-      Post_Trial_Circle_Frame_Hand.setAutoDraw(true);
+      Post_Trial_Circle_Frame.setAutoDraw(true);
     }
 
     frameRemains = 0.0 + post_trial_dur - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
-    if (Post_Trial_Circle_Frame_Hand.status === PsychoJS.Status.STARTED && t >= frameRemains) {
-      Post_Trial_Circle_Frame_Hand.setAutoDraw(false);
+    if (Post_Trial_Circle_Frame.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      Post_Trial_Circle_Frame.setAutoDraw(false);
     }
     
     // *Post_Trial_HandShape* updates
@@ -3939,11 +4010,11 @@ function Post_Trial_HandRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Post_Trial_HandComponents)
+    Post_TrialComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -3955,15 +4026,15 @@ function Post_Trial_HandRoutineEachFrame(trials) {
 }
 
 
-function Post_Trial_HandRoutineEnd(trials) {
+function Post_TrialRoutineEnd(trials) {
   return function () {
-    //------Ending Routine 'Post_Trial_Hand'-------
-    for (const thisComponent of Post_Trial_HandComponents) {
+    //------Ending Routine 'Post_Trial'-------
+    Post_TrialComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
-    // the Routine "Post_Trial_Hand" was not non-slip safe, so reset the non-slip timer
+    });
+    // the Routine "Post_Trial" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
     return Scheduler.Event.NEXT;
@@ -3988,15 +4059,17 @@ function Instr_TR_HandRoutineBegin(trials) {
     stim_type = "Hand";
     remap = 0;
     block_count = 0;
+    hand_opacity = 1;
     
     // keep track of which components have finished
     Instr_TR_HandComponents = [];
     Instr_TR_HandComponents.push(instr_HAND_TR_text);
     Instr_TR_HandComponents.push(Instr_HAND_TR_press);
     
-    for (const thisComponent of Instr_TR_HandComponents)
+    Instr_TR_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -4056,11 +4129,11 @@ function Instr_TR_HandRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_TR_HandComponents)
+    Instr_TR_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -4071,14 +4144,15 @@ function Instr_TR_HandRoutineEachFrame(trials) {
   };
 }
 
+
 function Instr_TR_HandRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_TR_Hand'-------
-    for (const thisComponent of Instr_TR_HandComponents) {
+    Instr_TR_HandComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_HAND_TR_press.keys', Instr_HAND_TR_press.keys);
     if (typeof Instr_HAND_TR_press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_HAND_TR_press.rt', Instr_HAND_TR_press.rt);
@@ -4103,7 +4177,7 @@ function Instr_Block_NumRoutineBegin(trials) {
     Instr_Block_NumClock.reset(); // clock
     frameN = -1;
     // update component parameters for each repeat
-    Instr_Block_Num_Text.setText((('Block ' + block_count) + '\nPress one of (H, U) to start'));
+    Instr_Block_Num_Text.setText((('Block ' + str(block_count)) + '\nPress one of (H, U) to start'));
     Instr_Block_Num_Press.keys = undefined;
     Instr_Block_Num_Press.rt = undefined;
     _Instr_Block_Num_Press_allKeys = [];
@@ -4112,9 +4186,10 @@ function Instr_Block_NumRoutineBegin(trials) {
     Instr_Block_NumComponents.push(Instr_Block_Num_Text);
     Instr_Block_NumComponents.push(Instr_Block_Num_Press);
     
-    for (const thisComponent of Instr_Block_NumComponents)
+    Instr_Block_NumComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -4174,11 +4249,11 @@ function Instr_Block_NumRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_Block_NumComponents)
+    Instr_Block_NumComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -4193,11 +4268,11 @@ function Instr_Block_NumRoutineEachFrame(trials) {
 function Instr_Block_NumRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_Block_Num'-------
-    for (const thisComponent of Instr_Block_NumComponents) {
+    Instr_Block_NumComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_Block_Num_Press.keys', Instr_Block_Num_Press.keys);
     if (typeof Instr_Block_Num_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_Block_Num_Press.rt', Instr_Block_Num_Press.rt);
@@ -4239,7 +4314,6 @@ function TR_Enter_Trials_HandRoutineBegin(trials) {
     TR_Circle_Hand.setOpacity(circle_opacity);
     TR_Circle_Hand.setLineColor(new util.Color(circle_color));
     TR_Circle_Hand.setLineWidth(circle_wd);
-    TR_Circle_Hand.setSize([0.26 + 0.2 * time_limit,0.26 + 0.2 * time_limit]);
     TR_Circle_Frame_Hand.setOpacity(circle_frame_opacity);
     TR_Circle_Frame_Hand.setLineColor(new util.Color(circle_frame_color));
     TR_Circle_Frame_Hand.setLineWidth(circle_wd);
@@ -4256,9 +4330,10 @@ function TR_Enter_Trials_HandRoutineBegin(trials) {
     TR_Enter_Trials_HandComponents.push(TR_Stim_Hand);
     TR_Enter_Trials_HandComponents.push(TR_Press_Hand);
     
-    for (const thisComponent of TR_Enter_Trials_HandComponents)
+    TR_Enter_Trials_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -4379,11 +4454,11 @@ function TR_Enter_Trials_HandRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of TR_Enter_Trials_HandComponents)
+    TR_Enter_Trials_HandComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -4396,17 +4471,16 @@ function TR_Enter_Trials_HandRoutineEachFrame(trials) {
 
 
 var tr_feedback_text_color;
-var tr_feedback_text;
 var tr_penalty_text;
 function TR_Enter_Trials_HandRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'TR_Enter_Trials_Hand'-------
-    for (const thisComponent of TR_Enter_Trials_HandComponents) {
+    TR_Enter_Trials_HandComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
-    if ((TR_Press_Hand.keys !== undefined)) {
+    });
+    if ((TR_Press_Hand.keys.length !== 0)) {
         if (TR_Press_Hand.corr) {
             feedback = feedback_p;
             corr = 1;
@@ -4507,9 +4581,10 @@ function TR_FeedbackRoutineBegin(trials) {
     TR_FeedbackComponents.push(TR_Feedback_Text);
     TR_FeedbackComponents.push(TR_Feedback_Image);
     
-    for (const thisComponent of TR_FeedbackComponents)
+    TR_FeedbackComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -4577,11 +4652,11 @@ function TR_FeedbackRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of TR_FeedbackComponents)
+    TR_FeedbackComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -4596,11 +4671,11 @@ function TR_FeedbackRoutineEachFrame(trials) {
 function TR_FeedbackRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'TR_Feedback'-------
-    for (const thisComponent of TR_FeedbackComponents) {
+    TR_FeedbackComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     // the Routine "TR_Feedback" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
@@ -4631,9 +4706,10 @@ function TR_PenaltyRoutineBegin(trials) {
     TR_PenaltyComponents.push(TR_Penalty_Text);
     TR_PenaltyComponents.push(TR_Penalty_Press);
     
-    for (const thisComponent of TR_PenaltyComponents)
+    TR_PenaltyComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -4703,11 +4779,11 @@ function TR_PenaltyRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of TR_PenaltyComponents)
+    TR_PenaltyComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -4722,11 +4798,11 @@ function TR_PenaltyRoutineEachFrame(trials) {
 function TR_PenaltyRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'TR_Penalty'-------
-    for (const thisComponent of TR_PenaltyComponents) {
+    TR_PenaltyComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('TR_Penalty_Press.keys', TR_Penalty_Press.keys);
     if (typeof TR_Penalty_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('TR_Penalty_Press.rt', TR_Penalty_Press.rt);
@@ -4754,7 +4830,7 @@ function TR_Hand_Accuracy_BoolRoutineBegin(trials) {
     if ((block_count > 1)) {
         tr_timing_perc = (tr_timing_good / num_trials_hand);
         if ((tr_timing_perc > 0.7)) {
-            trials.finished = true;
+            TR_Block_Hand.finished = true;
         }
     }
     tr_timing_good = 0;
@@ -4762,9 +4838,10 @@ function TR_Hand_Accuracy_BoolRoutineBegin(trials) {
     // keep track of which components have finished
     TR_Hand_Accuracy_BoolComponents = [];
     
-    for (const thisComponent of TR_Hand_Accuracy_BoolComponents)
+    TR_Hand_Accuracy_BoolComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -4790,11 +4867,11 @@ function TR_Hand_Accuracy_BoolRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of TR_Hand_Accuracy_BoolComponents)
+    TR_Hand_Accuracy_BoolComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -4809,11 +4886,11 @@ function TR_Hand_Accuracy_BoolRoutineEachFrame(trials) {
 function TR_Hand_Accuracy_BoolRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'TR_Hand_Accuracy_Bool'-------
-    for (const thisComponent of TR_Hand_Accuracy_BoolComponents) {
+    TR_Hand_Accuracy_BoolComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     // the Routine "TR_Hand_Accuracy_Bool" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
@@ -4845,15 +4922,17 @@ function Instr_CR_OldRoutineBegin(trials) {
     finger = finger_map;
     ctx = ctx_map;
     ctx_color = ctx_color_map;
+    hand_opacity = 0;
     
     // keep track of which components have finished
     Instr_CR_OldComponents = [];
     Instr_CR_OldComponents.push(Instr_CR_Old_Text);
     Instr_CR_OldComponents.push(Instr_CR_Old_Press);
     
-    for (const thisComponent of Instr_CR_OldComponents)
+    Instr_CR_OldComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -4913,11 +4992,11 @@ function Instr_CR_OldRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_CR_OldComponents)
+    Instr_CR_OldComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -4932,11 +5011,11 @@ function Instr_CR_OldRoutineEachFrame(trials) {
 function Instr_CR_OldRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_CR_Old'-------
-    for (const thisComponent of Instr_CR_OldComponents) {
+    Instr_CR_OldComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_CR_Old_Press.keys', Instr_CR_Old_Press.keys);
     if (typeof Instr_CR_Old_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_CR_Old_Press.rt', Instr_CR_Old_Press.rt);
@@ -4952,145 +5031,6 @@ function Instr_CR_OldRoutineEnd(trials) {
 }
 
 
-var Pre_TrialComponents;
-function Pre_TrialRoutineBegin(trials) {
-  return function () {
-    //------Prepare to start Routine 'Pre_Trial'-------
-    t = 0;
-    Pre_TrialClock.reset(); // clock
-    frameN = -1;
-    // update component parameters for each repeat
-    Pre_Trial_Circle_Frame.setOpacity(circle_frame_opacity);
-    Pre_Trial_Circle_Frame.setLineColor(new util.Color(circle_frame_color));
-    Pre_Trial_Circle_Frame.setLineWidth(circle_wd);
-    if ((stim_type === "Hand")) {
-        x_item = seq_handx[trial_count];
-        finger_item = seq_finger_hand[trial_count];
-        y_item = seq_handy[trial_count];
-        key_item = seq_key_num_hand[trial_count];
-        stim_num_item = seq_stim_num_hand[trial_count];
-        if ((block_type === "TR")) {
-            stim_start_time = ((Math.random() * ((time_limit - too_late_tol) - prep_time_range[0])) + ((time_limit - too_late_tol) - prep_time_range[1]));
-            prep_time = ((time_limit - too_late_tol) - stim_start_time);
-        } else {
-            stim_start_time = 0;
-            prep_time = 99;
-        }
-        position_item = [x_item, y_item];
-        if ((x_item === (- 0.038))) {
-            stim_hand = 0;
-        } else {
-            if ((x_item === 0.014)) {
-                stim_hand = 1;
-            } else {
-                if ((x_item === 0.057)) {
-                    stim_hand = 2;
-                } else {
-                    if ((x_item === 0.1)) {
-                        stim_hand = 3;
-                    }
-                }
-            }
-        }
-    } else {
-        stim_item = seq_stim[trial_count];
-        finger_item = seq_finger[trial_count];
-        image_item = seq_image[trial_count];
-        ctx_item = seq_ctx[trial_count];
-        ctx_color_item = seq_ctx_color[trial_count];
-        key_item = seq_key_num[trial_count];
-        stim_num_item = seq_stim_num[trial_count];
-        if ((block_type === "TR")) {
-            interval_ind = prep_time_ind[stim_num_item][trial_count_item[stim_num_item]];
-            prep_time = ((Math.random() * (prep_time_interval[interval_ind][1] - prep_time_interval[interval_ind][0])) + prep_time_interval[interval_ind][0]);
-            stim_start_time = (prep_time_range[1] - prep_time);
-            trial_count_item[stim_num_item] = (trial_count_item[stim_num_item] + 1);
-            ctx_start_time = 0;
-        } else {
-            stim_start_time = 0;
-            prep_time = 99;
-            ctx_start_time = 0;
-        }
-    }
-    
-    // keep track of which components have finished
-    Pre_TrialComponents = [];
-    Pre_TrialComponents.push(Pre_Trial_Circle_Frame);
-    
-    for (const thisComponent of Pre_TrialComponents)
-      if ('status' in thisComponent)
-        thisComponent.status = PsychoJS.Status.NOT_STARTED;
-    
-    return Scheduler.Event.NEXT;
-  };
-}
-
-
-function Pre_TrialRoutineEachFrame(trials) {
-  return function () {
-    //------Loop for each frame of Routine 'Pre_Trial'-------
-    let continueRoutine = true; // until we're told otherwise
-    // get current time
-    t = Pre_TrialClock.getTime();
-    frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
-    // update/draw components on each frame
-    
-    // *Pre_Trial_Circle_Frame* updates
-    if (t >= 0.0 && Pre_Trial_Circle_Frame.status === PsychoJS.Status.NOT_STARTED) {
-      // keep track of start time/frame for later
-      Pre_Trial_Circle_Frame.tStart = t;  // (not accounting for frame time here)
-      Pre_Trial_Circle_Frame.frameNStart = frameN;  // exact frame index
-      
-      Pre_Trial_Circle_Frame.setAutoDraw(true);
-    }
-
-    frameRemains = 0.0 + pre_trial_dur - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
-    if (Pre_Trial_Circle_Frame.status === PsychoJS.Status.STARTED && t >= frameRemains) {
-      Pre_Trial_Circle_Frame.setAutoDraw(false);
-    }
-    // check for quit (typically the Esc key)
-    if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
-    }
-    
-    // check if the Routine should terminate
-    if (!continueRoutine) {  // a component has requested a forced-end of Routine
-      return Scheduler.Event.NEXT;
-    }
-    
-    continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Pre_TrialComponents)
-      if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
-        continueRoutine = true;
-        break;
-      }
-    
-    // refresh the screen if continuing
-    if (continueRoutine) {
-      return Scheduler.Event.FLIP_REPEAT;
-    } else {
-      return Scheduler.Event.NEXT;
-    }
-  };
-}
-
-
-function Pre_TrialRoutineEnd(trials) {
-  return function () {
-    //------Ending Routine 'Pre_Trial'-------
-    for (const thisComponent of Pre_TrialComponents) {
-      if (typeof thisComponent.setAutoDraw === 'function') {
-        thisComponent.setAutoDraw(false);
-      }
-    }
-    // the Routine "Pre_Trial" was not non-slip safe, so reset the non-slip timer
-    routineTimer.reset();
-    
-    return Scheduler.Event.NEXT;
-  };
-}
-
-
 var _RT_Press_allKeys;
 var RT_Enter_TrialComponents;
 function RT_Enter_TrialRoutineBegin(trials) {
@@ -5099,8 +5039,6 @@ function RT_Enter_TrialRoutineBegin(trials) {
     t = 0;
     RT_Enter_TrialClock.reset(); // clock
     frameN = -1;
-    console.log(ctx_color_item)
-    console.log(circle_frame_color)
     // update component parameters for each repeat
     RT_Circle_Fame.setOpacity(circle_frame_opacity);
     RT_Circle_Fame.setLineColor(new util.Color(circle_frame_color));
@@ -5120,9 +5058,10 @@ function RT_Enter_TrialRoutineBegin(trials) {
     RT_Enter_TrialComponents.push(RT_Stim_Image);
     RT_Enter_TrialComponents.push(RT_Press);
     
-    for (const thisComponent of RT_Enter_TrialComponents)
+    RT_Enter_TrialComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -5208,11 +5147,11 @@ function RT_Enter_TrialRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of RT_Enter_TrialComponents)
+    RT_Enter_TrialComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -5227,11 +5166,11 @@ function RT_Enter_TrialRoutineEachFrame(trials) {
 function RT_Enter_TrialRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'RT_Enter_Trial'-------
-    for (const thisComponent of RT_Enter_TrialComponents) {
+    RT_Enter_TrialComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     if (RT_Press.corr) {
         feedback = feedback_p;
         feedback_dur = 0.3;
@@ -5272,121 +5211,6 @@ function RT_Enter_TrialRoutineEnd(trials) {
 }
 
 
-var Post_TrialComponents;
-function Post_TrialRoutineBegin(trials) {
-  return function () {
-    //------Prepare to start Routine 'Post_Trial'-------
-    t = 0;
-    Post_TrialClock.reset(); // clock
-    frameN = -1;
-    // update component parameters for each repeat
-    Post_Trial_Circle_Frame.setOpacity(circle_frame_opacity);
-    Post_Trial_Circle_Frame.setLineColor(new util.Color(circle_frame_color));
-    Post_Trial_Circle_Frame.setLineWidth(circle_wd);
-    if ((stim_type === "Hand")) {
-        psychoJS.experiment.addData("Symbol", stim_hand);
-        psychoJS.experiment.addData("Ctx", 0);
-        psychoJS.experiment.addData("Color", [99, 99, 99]);
-    } else {
-        psychoJS.experiment.addData("Symbol", stim_item);
-        psychoJS.experiment.addData("Shape", image_item);
-        psychoJS.experiment.addData("Ctx", ctx_item);
-        psychoJS.experiment.addData("Color", ctx_color_item);
-    }
-    psychoJS.experiment.addData("Stim_Num", stim_num_item);
-    psychoJS.experiment.addData("Key_Num", key_item);
-    psychoJS.experiment.addData("Stim_Type", stim_type);
-    psychoJS.experiment.addData("Finger", finger_item);
-    psychoJS.experiment.addData("Block_Type", block_type);
-    psychoJS.experiment.addData("Remap", remap);
-    psychoJS.experiment.addData("Repeat_Count", repeat_count);
-    psychoJS.experiment.addData("Trial_Count", trial_count);
-    psychoJS.experiment.addData("Grp", grp);
-    psychoJS.experiment.addData("Block_Num", block_count);
-    psychoJS.experiment.addData("Prep_Time", prep_time);
-    psychoJS.experiment.addData("Actual_Press", press);
-    psychoJS.experiment.addData("Correct", corr);
-    psychoJS.experiment.addData("RT", rt);
-    psychoJS.experiment.addData("Session", session);
-    
-    // keep track of which components have finished
-    Post_TrialComponents = [];
-    Post_TrialComponents.push(Post_Trial_Circle_Frame);
-    
-    for (const thisComponent of Post_TrialComponents)
-      if ('status' in thisComponent)
-        thisComponent.status = PsychoJS.Status.NOT_STARTED;
-    
-    return Scheduler.Event.NEXT;
-  };
-}
-
-
-function Post_TrialRoutineEachFrame(trials) {
-  return function () {
-    //------Loop for each frame of Routine 'Post_Trial'-------
-    let continueRoutine = true; // until we're told otherwise
-    // get current time
-    t = Post_TrialClock.getTime();
-    frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
-    // update/draw components on each frame
-    
-    // *Post_Trial_Circle_Frame* updates
-    if (t >= 0.0 && Post_Trial_Circle_Frame.status === PsychoJS.Status.NOT_STARTED) {
-      // keep track of start time/frame for later
-      Post_Trial_Circle_Frame.tStart = t;  // (not accounting for frame time here)
-      Post_Trial_Circle_Frame.frameNStart = frameN;  // exact frame index
-      
-      Post_Trial_Circle_Frame.setAutoDraw(true);
-    }
-
-    frameRemains = 0.0 + post_trial_dur - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
-    if (Post_Trial_Circle_Frame.status === PsychoJS.Status.STARTED && t >= frameRemains) {
-      Post_Trial_Circle_Frame.setAutoDraw(false);
-    }
-    // check for quit (typically the Esc key)
-    if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
-    }
-    
-    // check if the Routine should terminate
-    if (!continueRoutine) {  // a component has requested a forced-end of Routine
-      return Scheduler.Event.NEXT;
-    }
-    
-    continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Post_TrialComponents)
-      if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
-        continueRoutine = true;
-        break;
-      }
-    
-    // refresh the screen if continuing
-    if (continueRoutine) {
-      return Scheduler.Event.FLIP_REPEAT;
-    } else {
-      return Scheduler.Event.NEXT;
-    }
-  };
-}
-
-
-function Post_TrialRoutineEnd(trials) {
-  return function () {
-    //------Ending Routine 'Post_Trial'-------
-    for (const thisComponent of Post_TrialComponents) {
-      if (typeof thisComponent.setAutoDraw === 'function') {
-        thisComponent.setAutoDraw(false);
-      }
-    }
-    // the Routine "Post_Trial" was not non-slip safe, so reset the non-slip timer
-    routineTimer.reset();
-    
-    return Scheduler.Event.NEXT;
-  };
-}
-
-
 var Criterion_DetComponents;
 function Criterion_DetRoutineBegin(trials) {
   return function () {
@@ -5417,16 +5241,22 @@ function Criterion_DetRoutineBegin(trials) {
         }
         return true;
     }
-    if (CR_Crit(sum_corr)) {
-      trials.finished =  true;
+    if ((remap === 0)) {
+        CR_Old_Iter.finished = new CR_Crit(sum_corr);
+    } else {
+        if ((remap === 1)) {
+            CR_New_Iter.finished = new CR_Crit(sum_corr);
+        }
     }
+    console.log(sum_corr);
     
     // keep track of which components have finished
     Criterion_DetComponents = [];
     
-    for (const thisComponent of Criterion_DetComponents)
+    Criterion_DetComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -5452,11 +5282,11 @@ function Criterion_DetRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Criterion_DetComponents)
+    Criterion_DetComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -5471,11 +5301,11 @@ function Criterion_DetRoutineEachFrame(trials) {
 function Criterion_DetRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Criterion_Det'-------
-    for (const thisComponent of Criterion_DetComponents) {
+    Criterion_DetComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     // the Routine "Criterion_Det" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
@@ -5510,15 +5340,17 @@ function Instr_CR_NewRoutineBegin(trials) {
         ctx = ctx_map;
         ctx_color = ctx_color_map;
     }
+    hand_opacity = 0;
     
     // keep track of which components have finished
     Instr_CR_NewComponents = [];
     Instr_CR_NewComponents.push(Instr_CR_New_Text);
     Instr_CR_NewComponents.push(Instr_CR_New_Press);
     
-    for (const thisComponent of Instr_CR_NewComponents)
+    Instr_CR_NewComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -5578,11 +5410,11 @@ function Instr_CR_NewRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_CR_NewComponents)
+    Instr_CR_NewComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -5597,11 +5429,11 @@ function Instr_CR_NewRoutineEachFrame(trials) {
 function Instr_CR_NewRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_CR_New'-------
-    for (const thisComponent of Instr_CR_NewComponents) {
+    Instr_CR_NewComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_CR_New_Press.keys', Instr_CR_New_Press.keys);
     if (typeof Instr_CR_New_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_CR_New_Press.rt', Instr_CR_New_Press.rt);
@@ -5638,15 +5470,17 @@ function Instr_RT_OldRoutineBegin(trials) {
     ctx = ctx_map;
     ctx_color = ctx_color_map;
     stim_start_time_fix = 0;
+    hand_opacity = 0;
     
     // keep track of which components have finished
     Instr_RT_OldComponents = [];
     Instr_RT_OldComponents.push(Instr_RT_Old_Text);
     Instr_RT_OldComponents.push(Instr_RT_Old_Press);
     
-    for (const thisComponent of Instr_RT_OldComponents)
+    Instr_RT_OldComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -5706,11 +5540,11 @@ function Instr_RT_OldRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_RT_OldComponents)
+    Instr_RT_OldComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -5725,11 +5559,11 @@ function Instr_RT_OldRoutineEachFrame(trials) {
 function Instr_RT_OldRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_RT_Old'-------
-    for (const thisComponent of Instr_RT_OldComponents) {
+    Instr_RT_OldComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_RT_Old_Press.keys', Instr_RT_Old_Press.keys);
     if (typeof Instr_RT_Old_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_RT_Old_Press.rt', Instr_RT_Old_Press.rt);
@@ -5771,15 +5605,17 @@ function Instr_RT_NewRoutineBegin(trials) {
         ctx_color = ctx_color_map;
     }
     stim_start_time_fix = 0;
+    hand_opacity = 0;
     
     // keep track of which components have finished
     Instr_RT_NewComponents = [];
     Instr_RT_NewComponents.push(Instr_RT_New_Text);
     Instr_RT_NewComponents.push(Instr_RT_New_Press);
     
-    for (const thisComponent of Instr_RT_NewComponents)
+    Instr_RT_NewComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -5839,11 +5675,11 @@ function Instr_RT_NewRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_RT_NewComponents)
+    Instr_RT_NewComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -5858,11 +5694,11 @@ function Instr_RT_NewRoutineEachFrame(trials) {
 function Instr_RT_NewRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_RT_New'-------
-    for (const thisComponent of Instr_RT_NewComponents) {
+    Instr_RT_NewComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_RT_New_Press.keys', Instr_RT_New_Press.keys);
     if (typeof Instr_RT_New_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_RT_New_Press.rt', Instr_RT_New_Press.rt);
@@ -5898,15 +5734,17 @@ function Instr_TR_OldRoutineBegin(trials) {
     ctx = ctx_map;
     ctx_color = ctx_color_map;
     block_count = 0;
+    hand_opacity = 0;
     
     // keep track of which components have finished
     Instr_TR_OldComponents = [];
     Instr_TR_OldComponents.push(Instr_TR_Old_Text);
     Instr_TR_OldComponents.push(Instr_TR_Old_Press);
     
-    for (const thisComponent of Instr_TR_OldComponents)
+    Instr_TR_OldComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -5966,11 +5804,11 @@ function Instr_TR_OldRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_TR_OldComponents)
+    Instr_TR_OldComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -5985,11 +5823,11 @@ function Instr_TR_OldRoutineEachFrame(trials) {
 function Instr_TR_OldRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_TR_Old'-------
-    for (const thisComponent of Instr_TR_OldComponents) {
+    Instr_TR_OldComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_TR_Old_Press.keys', Instr_TR_Old_Press.keys);
     if (typeof Instr_TR_Old_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_TR_Old_Press.rt', Instr_TR_Old_Press.rt);
@@ -6028,7 +5866,6 @@ function TR_Enter_TrialsRoutineBegin(trials) {
     TR_Circle.setOpacity(circle_opacity);
     TR_Circle.setLineColor(new util.Color(circle_color));
     TR_Circle.setLineWidth(circle_wd);
-    TR_Circle.setSize([0.26 + 0.2 * time_limit,0.26 + 0.2 * time_limit]);
     TR_Ctx.setOpacity(ctx_opacity);
     TR_Ctx.setSize([ctx_size, ctx_size]);
     TR_Ctx.setFillColor(new util.Color(ctx_color_item));
@@ -6045,9 +5882,10 @@ function TR_Enter_TrialsRoutineBegin(trials) {
     TR_Enter_TrialsComponents.push(TR_Stim_Image);
     TR_Enter_TrialsComponents.push(TR_Press);
     
-    for (const thisComponent of TR_Enter_TrialsComponents)
+    TR_Enter_TrialsComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -6168,11 +6006,11 @@ function TR_Enter_TrialsRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of TR_Enter_TrialsComponents)
+    TR_Enter_TrialsComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -6187,12 +6025,12 @@ function TR_Enter_TrialsRoutineEachFrame(trials) {
 function TR_Enter_TrialsRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'TR_Enter_Trials'-------
-    for (const thisComponent of TR_Enter_TrialsComponents) {
+    TR_Enter_TrialsComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
-    if ((TR_Press.keys !== undefined)) {
+    });
+    if ((TR_Press.keys.length !== 0)) {
         if (TR_Press.corr) {
             feedback = feedback_p;
             corr = 1;
@@ -6298,15 +6136,17 @@ function Instr_TR_NewRoutineBegin(trials) {
         ctx_color = ctx_color_map;
     }
     block_count = 0;
+    hand_opacity = 0;
     
     // keep track of which components have finished
     Instr_TR_NewComponents = [];
     Instr_TR_NewComponents.push(Instr_TR_New_Text);
     Instr_TR_NewComponents.push(Instr_TR_New_Press);
     
-    for (const thisComponent of Instr_TR_NewComponents)
+    Instr_TR_NewComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
     
     return Scheduler.Event.NEXT;
   };
@@ -6366,11 +6206,11 @@ function Instr_TR_NewRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_TR_NewComponents)
+    Instr_TR_NewComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
-        break;
       }
+    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -6385,11 +6225,11 @@ function Instr_TR_NewRoutineEachFrame(trials) {
 function Instr_TR_NewRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_TR_New'-------
-    for (const thisComponent of Instr_TR_NewComponents) {
+    Instr_TR_NewComponents.forEach( function(thisComponent) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    }
+    });
     psychoJS.experiment.addData('Instr_TR_New_Press.keys', Instr_TR_New_Press.keys);
     if (typeof Instr_TR_New_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_TR_New_Press.rt', Instr_TR_New_Press.rt);
@@ -6441,10 +6281,6 @@ function quitPsychoJS(message, isCompleted) {
   if (psychoJS.experiment.isEntryEmpty()) {
     psychoJS.experiment.nextEntry();
   }
-  
-  
-  
-  
   
   
   
