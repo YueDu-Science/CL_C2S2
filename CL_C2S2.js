@@ -458,7 +458,7 @@ function experimentInit() {
       prep_time_ind.push(prep_time_ind_tmp.slice(0));
       count = (count + 1);
   }
-  
+
   prep_time_interval = [[(- 0.5), (- 0.3)], [prep_time_range[0], 0.2], [0.2, 0.4], [0.4, 0.6], [0.6, 0.8], [0.8, 1], [1, prep_time_range[1]]];
   
   // Initialize components for Routine "Instr_Exp"
@@ -2746,8 +2746,8 @@ function Import_Stim_FileRoutineBegin(trials) {
         finger_ctx1.push(finger[stim_key_map_ctx1[i]]);
         finger_ctx2.push(finger[stim_key_map_ctx2[i]]);
     }
-    thisExp.addData("stim_key_map_ctx1", stim_key_map_ctx1);
-    thisExp.addData("stim_key_map_ctx2", stim_key_map_ctx2);
+    psychoJS.experiment.addData("stim_key_map_ctx1", stim_key_map_ctx1);
+    psychoJS.experiment.addData("stim_key_map_ctx2", stim_key_map_ctx2);
     finger_map = finger_ctx1.concat(finger_ctx2);
     if ((grp === 1)) {
         stim_key_remap_ctx1 = Object.assign({}, stim_key_map_ctx2);
@@ -2778,8 +2778,8 @@ function Import_Stim_FileRoutineBegin(trials) {
         finger_remap_ctx1.push(finger[stim_key_remap_ctx1[i]]);
         finger_remap_ctx2.push(finger[stim_key_remap_ctx2[i]]);
     }
-    thisExp.addData("stim_key_remap_ctx1", stim_key_remap_ctx1);
-    thisExp.addData("stim_key_remap_ctx2", stim_key_remap_ctx2);
+    psychoJS.experiment.addData("stim_key_remap_ctx1", stim_key_remap_ctx1);
+    psychoJS.experiment.addData("stim_key_remap_ctx2", stim_key_remap_ctx2);
     finger_remap = finger_remap_ctx1.concat(finger_remap_ctx2);
     
     // keep track of which components have finished
@@ -3838,29 +3838,29 @@ function Post_Trial_HandRoutineBegin(trials) {
     Post_Trial_Circle_Frame_Hand.setLineColor(new util.Color(ctx_item));
     Post_Trial_Circle_Frame_Hand.setLineWidth(circle_wd);
     if ((stim_type === "Hand")) {
-        thisExp.addData("Symbol", stim_hand);
-        thisExp.addData("Ctx", 0);
-        thisExp.addData("Color", [99, 99, 99]);
+        psychoJS.experiment.addData("Symbol", stim_hand);
+        psychoJS.experiment.addData("Ctx", 0);
+        psychoJS.experiment.addData("Color", [99, 99, 99]);
     } else {
-        thisExp.addData("Symbol", stim_item);
-        thisExp.addData("Shape", image_item);
-        thisExp.addData("Ctx", ctx_item);
-        thisExp.addData("Color", ctx_color_item);
+        psychoJS.experiment.addData("Symbol", stim_item);
+        psychoJS.experiment.addData("Shape", image_item);
+        psychoJS.experiment.addData("Ctx", ctx_item);
+        psychoJS.experiment.addData("Color", ctx_color_item);
     }
-    thisExp.addData("Stim_Num", stim_num_item);
-    thisExp.addData("Key_Num", key_item);
-    thisExp.addData("Stim_Type", stim_type);
-    thisExp.addData("Finger", finger_item);
-    thisExp.addData("Block_Type", block_type);
-    thisExp.addData("Remap", remap);
-    thisExp.addData("Repeat_Count", repeat_count);
-    thisExp.addData("Trial_Count", trial_count);
-    thisExp.addData("Grp", grp);
-    thisExp.addData("Block_Num", block_count);
-    thisExp.addData("Prep_Time", prep_time);
-    thisExp.addData("Actual_Press", press);
-    thisExp.addData("RT", rt);
-    thisExp.addData("Session", session);
+    psychoJS.experiment.addData("Stim_Num", stim_num_item);
+    psychoJS.experiment.addData("Key_Num", key_item);
+    psychoJS.experiment.addData("Stim_Type", stim_type);
+    psychoJS.experiment.addData("Finger", finger_item);
+    psychoJS.experiment.addData("Block_Type", block_type);
+    psychoJS.experiment.addData("Remap", remap);
+    psychoJS.experiment.addData("Repeat_Count", repeat_count);
+    psychoJS.experiment.addData("Trial_Count", trial_count);
+    psychoJS.experiment.addData("Grp", grp);
+    psychoJS.experiment.addData("Block_Num", block_count);
+    psychoJS.experiment.addData("Prep_Time", prep_time);
+    psychoJS.experiment.addData("Actual_Press", press);
+    psychoJS.experiment.addData("RT", rt);
+    psychoJS.experiment.addData("Session", session);
     
     Post_Trial_HandShape.setImage(hand_shape);
     // keep track of which components have finished
@@ -5268,30 +5268,30 @@ function Post_TrialRoutineBegin(trials) {
     Post_Trial_Circle_Frame.setLineColor(new util.Color(circle_frame_color));
     Post_Trial_Circle_Frame.setLineWidth(circle_wd);
     if ((stim_type === "Hand")) {
-        thisExp.addData("Symbol", stim_hand);
-        thisExp.addData("Ctx", 0);
-        thisExp.addData("Color", [99, 99, 99]);
+        psychoJS.experiment.addData("Symbol", stim_hand);
+        psychoJS.experiment.addData("Ctx", 0);
+        psychoJS.experiment.addData("Color", [99, 99, 99]);
     } else {
-        thisExp.addData("Symbol", stim_item);
-        thisExp.addData("Shape", image_item);
-        thisExp.addData("Ctx", ctx_item);
-        thisExp.addData("Color", ctx_color_item);
+        psychoJS.experiment.addData("Symbol", stim_item);
+        psychoJS.experiment.addData("Shape", image_item);
+        psychoJS.experiment.addData("Ctx", ctx_item);
+        psychoJS.experiment.addData("Color", ctx_color_item);
     }
-    thisExp.addData("Stim_Num", stim_num_item);
-    thisExp.addData("Key_Num", key_item);
-    thisExp.addData("Stim_Type", stim_type);
-    thisExp.addData("Finger", finger_item);
-    thisExp.addData("Block_Type", block_type);
-    thisExp.addData("Remap", remap);
-    thisExp.addData("Repeat_Count", repeat_count);
-    thisExp.addData("Trial_Count", trial_count);
-    thisExp.addData("Grp", grp);
-    thisExp.addData("Block_Num", block_count);
-    thisExp.addData("Prep_Time", prep_time);
-    thisExp.addData("Actual_Press", press);
-    thisExp.addData("Correct", corr);
-    thisExp.addData("RT", rt);
-    thisExp.addData("Session", session);
+    psychoJS.experiment.addData("Stim_Num", stim_num_item);
+    psychoJS.experiment.addData("Key_Num", key_item);
+    psychoJS.experiment.addData("Stim_Type", stim_type);
+    psychoJS.experiment.addData("Finger", finger_item);
+    psychoJS.experiment.addData("Block_Type", block_type);
+    psychoJS.experiment.addData("Remap", remap);
+    psychoJS.experiment.addData("Repeat_Count", repeat_count);
+    psychoJS.experiment.addData("Trial_Count", trial_count);
+    psychoJS.experiment.addData("Grp", grp);
+    psychoJS.experiment.addData("Block_Num", block_count);
+    psychoJS.experiment.addData("Prep_Time", prep_time);
+    psychoJS.experiment.addData("Actual_Press", press);
+    psychoJS.experiment.addData("Correct", corr);
+    psychoJS.experiment.addData("RT", rt);
+    psychoJS.experiment.addData("Session", session);
     
     // keep track of which components have finished
     Post_TrialComponents = [];
