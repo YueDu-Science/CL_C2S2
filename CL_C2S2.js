@@ -1475,7 +1475,6 @@ function experimentInit() {
   return Scheduler.Event.NEXT;
 }
 
-
 var Import_File;
 var currentLoop;
 function Import_FileLoopBegin(thisScheduler) {
@@ -2669,14 +2668,14 @@ function Import_Stim_FileRoutineBegin(trials) {
     stim_key_map_ctx2 = [];
     feedback_p = StimList[0]["Check"];
     feedback_n = StimList[0]["Cross"];
-    //for (var i = 0, _pj_a = num_ctx; (i < _pj_a); i += 1) {
-    //    ctx_color_list.append(ctx_color_all[i]);
-    //}
-    //psychoJS.experiment.addData("Ctx_Color_List", ctx_color_list);
-
     for (var i = 0, _pj_a = num_ctx; (i < _pj_a); i += 1) {
-      ctx_color_list.append(StimList[i]["Ctx_Color"]);
+        ctx_color_list.append(ctx_color_all[i]);
     }
+    psychoJS.experiment.addData("Ctx_Color_List", ctx_color_list);
+
+    //for (var i = 0, _pj_a = num_ctx; (i < _pj_a); i += 1) {
+    //  ctx_color_list.append(StimList[i]["Ctx_Color"]);
+    //}
 
     hand_shape = StimList[0]["Hand"];
     stim_num_hand = [];
