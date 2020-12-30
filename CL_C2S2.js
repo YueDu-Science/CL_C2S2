@@ -230,10 +230,9 @@ var seq_image;
 var seq_ctx;
 var count;
 
-var myrng = new Math.seedrandom(participant);   //use new here so it does not affect Math.random()
-var rng1 = myrng();
-var rng2 = myrng();
-var rng3 = myrng();
+var rng1;
+var rng2;
+var rng3;
 
 var prep_time_interval;
 var Instr_ExpClock;
@@ -433,6 +432,16 @@ function experimentInit() {
   key_num = [];
   ctx_color_remap = [];
   ctx_remap = [];
+
+  var myrng = new Math.seedrandom(participant);   //use new here so it does not affect Math.random()
+  rng1 = myrng();
+  rng2 = myrng();
+  rng3 = myrng();
+
+  console.log(rng1)
+  console.log(rng2)
+  console.log(rng3)
+  
   grp = 0;
   if ((rng1 < 0.33)) {
       grp = 1;
