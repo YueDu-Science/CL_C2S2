@@ -204,8 +204,8 @@ var tr_old_block;
 var tr_new_block;
 var timing_tol_early;
 var timing_tol_late;
-var TR_feedback_text;
-var TR_penalty_text;
+var tr_feedback_text;
+var tr_penalty_text;
 var StimList;
 var hand_shape;
 var x_pos;
@@ -3065,7 +3065,6 @@ function Instr_ExpRoutineEnd(trials) {
 
 var stim_type;
 var block_count;
-var ctx_item;
 var _Instr_RT_Hand_Key_allKeys;
 var Instr_RT_HandComponents;
 function Instr_RT_HandRoutineBegin(trials) {
@@ -3079,7 +3078,6 @@ function Instr_RT_HandRoutineBegin(trials) {
     stim_type = "Hand";
     remap = 0;
     block_count = 0;
-    ctx_item = circle_frame_color;
     
     Instr_RT_Hand_Rext.setText(instr_rt_text_hand);
     Instr_RT_Hand_Key.keys = undefined;
@@ -3380,12 +3378,15 @@ function Creat_StimSeqRoutineEnd(trials) {
   };
 }
 
-
+var stim_item;     
+var image_item;
+var ctx_item;
+var ctx_color_item;
+var key_item;
+var stim_num_item;
 var x_item;
 var finger_item;
 var y_item;
-var key_item;
-var stim_num_item;
 var stim_start_time;
 var prep_time;
 var position_item;
@@ -3398,7 +3399,7 @@ function Pre_Trial_HandRoutineBegin(trials) {
     Pre_Trial_HandClock.reset(); // clock
     frameN = -1;
     // update component parameters for each repeat
-    Pre_Trial_Circle_Frame_Hand.setLineColor(new util.Color(ctx_item));
+    Pre_Trial_Circle_Frame_Hand.setLineColor(new util.Color(circle_frame_color));
     Pre_Trial_Circle_Frame_Hand.setLineWidth(circle_wd);
     if ((stim_type === "Hand")) {
         x_item = seq_handx[trial_count];
@@ -3838,7 +3839,7 @@ function Post_Trial_HandRoutineBegin(trials) {
     Post_Trial_HandClock.reset(); // clock
     frameN = -1;
     // update component parameters for each repeat
-    Post_Trial_Circle_Frame_Hand.setLineColor(new util.Color(ctx_item));
+    Post_Trial_Circle_Frame_Hand.setLineColor(new util.Color(circle_frame_color));
     Post_Trial_Circle_Frame_Hand.setLineWidth(circle_wd);
     if ((stim_type === "Hand")) {
         psychoJS.experiment.addData("Symbol", stim_hand);
@@ -3977,7 +3978,6 @@ function Instr_TR_HandRoutineBegin(trials) {
     stim_type = "Hand";
     remap = 0;
     block_count = 0;
-    ctx_item = circle_frame_color;
     
     // keep track of which components have finished
     Instr_TR_HandComponents = [];
