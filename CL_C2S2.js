@@ -224,6 +224,10 @@ var prep_time_ind_tmp;
 var prep_time_ind;
 var num;
 var sample_num;
+var seq_stim;
+var seq_finger;
+var seq_image;
+var seq_ctx;
 var count;
 var rng1;
 var rng2;
@@ -2981,7 +2985,7 @@ function Import_Stim_FileRoutineEnd(trials) {
     }
     instr_rt_text_hand = `The upcoming three blocks are used to be familiar with the task.
     
-With your Right hand, place your Index, Middle, Ring, and Pinky fingers on (H, U) respectively. Your fingers will rest on these keys for the entirety of the experiment.
+With your Right hand, place your Index and Middle fingers on (H, U) respectively. Your fingers will rest on these keys for the entirety of the experiment.
     
 You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
     
