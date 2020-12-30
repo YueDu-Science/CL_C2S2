@@ -3439,10 +3439,10 @@ function Pre_Trial_HandRoutineBegin(trials) {
         key_item = seq_key_num[trial_count];
         stim_num_item = seq_stim_num[trial_count];
         if ((block_type === "TR")) {
-            interval_ind = prep_time_ind[stim_item][trial_count_item[stim_item]];
+            interval_ind = prep_time_ind[stim_num_item][trial_count_item[stim_num_item]];
             prep_time = ((Math.random() * (prep_time_interval[interval_ind][1] - prep_time_interval[interval_ind][0])) + prep_time_interval[interval_ind][0]);
             stim_start_time = (prep_time_range[1] - prep_time);
-            trial_count_item[stim_item] = (trial_count_item[stim_item] + 1);
+            trial_count_item[stim_num_item] = (trial_count_item[stim_num_item] + 1);
             ctx_start_time = 0;
         } else {
             stim_start_time = 0;
@@ -4991,10 +4991,10 @@ function Pre_TrialRoutineBegin(trials) {
         key_item = seq_key_num[trial_count];
         stim_num_item = seq_stim_num[trial_count];
         if ((block_type === "TR")) {
-            interval_ind = prep_time_ind[stim_item][trial_count_item[stim_item]];
+            interval_ind = prep_time_ind[stim_num_item][trial_count_item[stim_num_item]];
             prep_time = ((Math.random() * (prep_time_interval[interval_ind][1] - prep_time_interval[interval_ind][0])) + prep_time_interval[interval_ind][0]);
             stim_start_time = (prep_time_range[1] - prep_time);
-            trial_count_item[stim_item] = (trial_count_item[stim_item] + 1);
+            trial_count_item[stim_num_item] = (trial_count_item[stim_num_item] + 1);
             ctx_start_time = 0;
         } else {
             stim_start_time = 0;
