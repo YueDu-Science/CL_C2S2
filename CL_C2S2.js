@@ -2881,7 +2881,7 @@ function Import_Stim_FileRoutineBegin(trials) {
     }
     psychoJS.experiment.addData("stim_key_map_ctx1", stim_key_map_ctx1);
     psychoJS.experiment.addData("stim_key_map_ctx2", stim_key_map_ctx2);
-    finger_map = (finger_ctx1 + finger_ctx2);
+    finger_map = finger_ctx1.concat(finger_ctx2);
     if ((grp === 1)) {
         stim_key_remap_ctx1 = Object.assign({}, stim_key_map_ctx2);
         stim_key_remap_ctx2 = Object.assign({}, stim_key_map_ctx1);
@@ -2913,7 +2913,7 @@ function Import_Stim_FileRoutineBegin(trials) {
     }
     psychoJS.experiment.addData("stim_key_remap_ctx1", stim_key_remap_ctx1);
     psychoJS.experiment.addData("stim_key_remap_ctx2", stim_key_remap_ctx2);
-    finger_remap = (finger_remap_ctx1 + finger_remap_ctx2);
+    finger_remap = finger_remap_ctx1.concat(finger_remap_ctx2);
     
     // keep track of which components have finished
     Import_Stim_FileComponents = [];
