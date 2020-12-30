@@ -311,17 +311,8 @@ function experimentInit() {
   // Initialize components for Routine "Import_Stim_File"
   Import_Stim_FileClock = new util.Clock();
   
-          // add-on: list(s: string): string[]
-          function list(s) {
-              // if s is a string, we return a list of its characters
-              if (typeof s === 'string')
-                  return s.split('');
-              else
-                  // otherwise we return s:
-                  return s;
-          }
-          
-          block_type = [];
+   
+  block_type = [];
   participant = Number.parseInt(expInfo["participant"]);
   session = Number.parseInt(expInfo["session"]);
   circle_frame_color = [1, 1, 1];
@@ -371,7 +362,7 @@ function experimentInit() {
   num_per_pos = 2;
   num_trials_hand = (num_per_pos * num_pos);
   num_trials_cr = 2000;
-  num_criterion = 2;
+  num_criterion = 5;
   num_per_symb = 2;
   num_trials = ((num_per_symb * num_symb) * num_ctx);
   remap = 0;
@@ -390,36 +381,32 @@ function experimentInit() {
   tr_new_block = 0;
   if ((session === 1)) {
       instr_exp = 1;
-      hand_rt = 1;
-      hand_tr = 1;
-      cr_old = 1;
+      hand_rt = 0;
+      hand_tr = 0;
+      cr_old = 0;
       cr_new = 0;
-      rt_old = 1;
+      rt_old = 0;
       rt_new = 0;
-      rt_old_block = 1;
-      rt_new_block = 1;
+      rt_old_block = 0;
+      rt_new_block = 0;
       tr_old = 1;
       tr_new = 0;
       tr_old_block = 1;
-      tr_new_block = 1;
+      tr_new_block = 0;
   } else {
       if (((6 > session) && (session > 1))) {
-          rt = 1;
-          rt_block = 10;
+          rt_old = 1;
+          rt_old_block = 5;
+          tr_old = 1;
+          tr_old_block = 4;
       } else {
           if ((session === 6)) {
-              rt = 1;
-              rt_block = 2;
-              tr = 1;
-          } else {
-              if ((session === 7)) {
-                  rt = 1;
-                  rt_block = 2;
-                  remap = 1;
-                  cr = 1;
-                  tr = 1;
-              }
-          }
+              rt_old = 1;
+              rt_old_block = 2;
+              cr_new = 1;
+              tr_new = 1;
+              tr_new_block = 4;
+          } 
       }
   }
   timing_tol_early = 0.1;
@@ -2783,17 +2770,8 @@ function Import_Stim_FileRoutineBegin(trials) {
     frameN = -1;
     // update component parameters for each repeat
     
-            // add-on: list(s: string): string[]
-            function list(s) {
-                // if s is a string, we return a list of its characters
-                if (typeof s === 'string')
-                    return s.split('');
-                else
-                    // otherwise we return s:
-                    return s;
-            }
-            
-            StimList = Import_File.trialList;
+    
+    StimList = Import_File.trialList;
     stim_key_map_ctx1 = [];
     stim_key_map_ctx2 = [];
     feedback_p = StimList[0]["Check"];
