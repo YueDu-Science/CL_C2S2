@@ -2963,13 +2963,14 @@ function Import_Stim_FileRoutineEnd(trials) {
       }
     }
 
-    instr_exp = `Thank you for participating in our study! 
+    instr_exp_text = `Thank you for participating in our study! 
     
 This study has multiple sessions and it will take 40 minutes today. 
 
 Once you start, you cannot turn off your web browser until you complete the study.
 
 If you are ready, press (space) to continue.`
+    ;
     
     instr_rt_text_hand = `The upcoming three blocks are used to be familiar with the task.
     
@@ -3074,7 +3075,7 @@ function Instr_ExpRoutineBegin(trials) {
     Instr_ExpClock.reset(); // clock
     frameN = -1;
     // update component parameters for each repeat
-    Instr_Exp_Text.setText(instr_exp);
+    Instr_Exp_Text.setText(instr_exp_text);
     Instr_Exp_Key.keys = undefined;
     Instr_Exp_Key.rt = undefined;
     _Instr_Exp_Key_allKeys = [];
