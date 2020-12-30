@@ -381,17 +381,17 @@ function experimentInit() {
   tr_new_block = 0;
   if ((session === 1)) {
       instr_exp = 1;
-      hand_rt = 0;
-      hand_tr = 0;
-      cr_old = 0;
+      hand_rt = 1;
+      hand_tr = 1;
+      cr_old = 1;
       cr_new = 0;
-      rt_old = 0;
+      rt_old = 1;
       rt_new = 0;
-      rt_old_block = 0;
+      rt_old_block = 5;
       rt_new_block = 0;
       tr_old = 1;
       tr_new = 0;
-      tr_old_block = 1;
+      tr_old_block = 4;
       tr_new_block = 0;
   } else {
       if (((6 > session) && (session > 1))) {
