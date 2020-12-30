@@ -3264,7 +3264,7 @@ function Instr_RT_HandRoutineEachFrame(trials) {
     }
 
     if (Instr_RT_Hand_Key.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_RT_Hand_Key.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_RT_Hand_Key.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_RT_Hand_Key_allKeys = _Instr_RT_Hand_Key_allKeys.concat(theseKeys);
       if (_Instr_RT_Hand_Key_allKeys.length > 0) {
         Instr_RT_Hand_Key.keys = _Instr_RT_Hand_Key_allKeys[0].name;  // just the first key pressed
@@ -3497,7 +3497,6 @@ function Creat_StimSeqRoutineEachFrame(trials) {
   };
 }
 
-
 function Creat_StimSeqRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Creat_StimSeq'-------
@@ -3514,7 +3513,6 @@ function Creat_StimSeqRoutineEnd(trials) {
     return Scheduler.Event.NEXT;
   };
 }
-
 
 var stim_item;     
 var image_item;
@@ -4169,7 +4167,7 @@ function Instr_TR_HandRoutineEachFrame(trials) {
     }
 
     if (Instr_HAND_TR_press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_HAND_TR_press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_HAND_TR_press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_HAND_TR_press_allKeys = _Instr_HAND_TR_press_allKeys.concat(theseKeys);
       if (_Instr_HAND_TR_press_allKeys.length > 0) {
         Instr_HAND_TR_press.keys = _Instr_HAND_TR_press_allKeys[0].name;  // just the first key pressed
@@ -4288,7 +4286,7 @@ function Instr_Block_NumRoutineEachFrame(trials) {
     }
 
     if (Instr_Block_Num_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_Block_Num_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_Block_Num_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_Block_Num_Press_allKeys = _Instr_Block_Num_Press_allKeys.concat(theseKeys);
       if (_Instr_Block_Num_Press_allKeys.length > 0) {
         Instr_Block_Num_Press.keys = _Instr_Block_Num_Press_allKeys[0].name;  // just the first key pressed
@@ -4817,7 +4815,7 @@ function TR_PenaltyRoutineEachFrame(trials) {
     }
 
     if (TR_Penalty_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = TR_Penalty_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = TR_Penalty_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _TR_Penalty_Press_allKeys = _TR_Penalty_Press_allKeys.concat(theseKeys);
       if (_TR_Penalty_Press_allKeys.length > 0) {
         TR_Penalty_Press.keys = _TR_Penalty_Press_allKeys[0].name;  // just the first key pressed
@@ -5028,7 +5026,7 @@ function Instr_CR_OldRoutineEachFrame(trials) {
     }
 
     if (Instr_CR_Old_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_CR_Old_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_CR_Old_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_CR_Old_Press_allKeys = _Instr_CR_Old_Press_allKeys.concat(theseKeys);
       if (_Instr_CR_Old_Press_allKeys.length > 0) {
         Instr_CR_Old_Press.keys = _Instr_CR_Old_Press_allKeys[0].name;  // just the first key pressed
@@ -5441,7 +5439,7 @@ function Instr_CR_NewRoutineEachFrame(trials) {
     }
 
     if (Instr_CR_New_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_CR_New_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_CR_New_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_CR_New_Press_allKeys = _Instr_CR_New_Press_allKeys.concat(theseKeys);
       if (_Instr_CR_New_Press_allKeys.length > 0) {
         Instr_CR_New_Press.keys = _Instr_CR_New_Press_allKeys[0].name;  // just the first key pressed
@@ -5570,7 +5568,7 @@ function Instr_RT_OldRoutineEachFrame(trials) {
     }
 
     if (Instr_RT_Old_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_RT_Old_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_RT_Old_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_RT_Old_Press_allKeys = _Instr_RT_Old_Press_allKeys.concat(theseKeys);
       if (_Instr_RT_Old_Press_allKeys.length > 0) {
         Instr_RT_Old_Press.keys = _Instr_RT_Old_Press_allKeys[0].name;  // just the first key pressed
@@ -5704,7 +5702,7 @@ function Instr_RT_NewRoutineEachFrame(trials) {
     }
 
     if (Instr_RT_New_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_RT_New_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_RT_New_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_RT_New_Press_allKeys = _Instr_RT_New_Press_allKeys.concat(theseKeys);
       if (_Instr_RT_New_Press_allKeys.length > 0) {
         Instr_RT_New_Press.keys = _Instr_RT_New_Press_allKeys[0].name;  // just the first key pressed
@@ -5832,7 +5830,7 @@ function Instr_TR_OldRoutineEachFrame(trials) {
     }
 
     if (Instr_TR_Old_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_TR_Old_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_TR_Old_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_TR_Old_Press_allKeys = _Instr_TR_Old_Press_allKeys.concat(theseKeys);
       if (_Instr_TR_Old_Press_allKeys.length > 0) {
         Instr_TR_Old_Press.keys = _Instr_TR_Old_Press_allKeys[0].name;  // just the first key pressed
@@ -6233,7 +6231,7 @@ function Instr_TR_NewRoutineEachFrame(trials) {
     }
 
     if (Instr_TR_New_Press.status === PsychoJS.Status.STARTED) {
-      let theseKeys = Instr_TR_New_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      let theseKeys = Instr_TR_New_Press.getKeys({keyList: ['h', 'u'], waitRelease: false});
       _Instr_TR_New_Press_allKeys = _Instr_TR_New_Press_allKeys.concat(theseKeys);
       if (_Instr_TR_New_Press_allKeys.length > 0) {
         Instr_TR_New_Press.keys = _Instr_TR_New_Press_allKeys[0].name;  // just the first key pressed
