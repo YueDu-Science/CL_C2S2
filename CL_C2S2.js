@@ -3526,6 +3526,7 @@ var x_item;
 var finger_item;
 var y_item;
 var stim_start_time;
+var interval_ind;
 var prep_time;
 var ctx_start_time;
 var position_item;
