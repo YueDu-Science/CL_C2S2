@@ -359,11 +359,11 @@ function experimentInit() {
   n_map = stim_key_perm.length;
   rt_block_hand = 1;
   tr_block_hand = 4;
-  num_per_pos = 2;
+  num_per_pos = 5;
   num_trials_hand = (num_per_pos * num_pos);
   num_trials_cr = 2000;
   num_criterion = 5;
-  num_per_symb = 2;
+  num_per_symb = 25;
   num_trials = ((num_per_symb * num_symb) * num_ctx);
   remap = 0;
   instr_exp = 0;
