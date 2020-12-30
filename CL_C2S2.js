@@ -323,7 +323,7 @@ function experimentInit() {
   circle_wd = 12;
   ctx_wd = 0;
   ctx_opacity = 0.5;
-  ctx_size = 0.3;
+  ctx_size = 0.295;
   feedback_size = [0.18, 0.18];
   pre_trial_dur = 0.1;
   post_trial_dur = 0.1;

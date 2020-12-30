@@ -1,0 +1,607 @@
+1.5386 	WARNING 	We strongly recommend you activate the PTB sound engine in PsychoPy prefs as the preferred audio engine. Its timing is vastly superior. Your prefs are currently set to use ['sounddevice', 'PTB', 'pyo', 'pygame'] (in that order).
+7.9839 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-1., -1., -1.]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x000001FBCE87B400>, gamma=None, gammaErrorPolicy='raise', kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x000001FBCE401E48>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=0, size=array([1920, 1080]), stencilBits=0, stereo=False, units='height', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+7.9839 	EXP 	window1: recordFrameIntervals = False
+8.1505 	EXP 	window1: recordFrameIntervals = True
+8.3339 	EXP 	window1: recordFrameIntervals = False
+8.5795 	EXP 	Created Instr_Exp_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_Exp_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=str(...), units='height', win=Window(...), wrapWidth=1)
+8.5833 	EXP 	Created Instr_RT_Hand_Rext = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_RT_Hand_Rext', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.6042 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.6069 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.6220 	EXP 	Created RT_Circle_Frame_Hand = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Frame_Hand', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.6238 	EXP 	Created RT_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.6258 	EXP 	Created RT_Stim_Hand = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-4.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1, name='RT_Stim_Hand', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.025, 0.025]), units='height', vertices=ndarray(...), win=Window(...))
+8.6411 	EXP 	Created RT_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.6433 	EXP 	Created RT_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+8.6586 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.6609 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.6634 	EXP 	Created instr_HAND_TR_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='instr_HAND_TR_text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.6658 	EXP 	Created Instr_Block_Num_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_Block_Num_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.6807 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.6828 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.6975 	EXP 	Created TR_Circle_Hand = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=None, fillColorSpace='rgb', fillRGB=None, interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle_Hand', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+8.7123 	EXP 	Created TR_Circle_Frame_Hand = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-2.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle_Frame_Hand', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.7141 	EXP 	Created TR_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='TR_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.7161 	EXP 	Created TR_Stim_Hand = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-4.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1, name='TR_Stim_Hand', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.025, 0.025]), units='height', vertices=ndarray(...), win=Window(...))
+8.7310 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.7335 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.7489 	EXP 	Created Tr_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Tr_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.7647 	EXP 	Created TR_Feedback_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.08, italic=False, languageStyle='LTR', name='TR_Feedback_Text', opacity=1.0, ori=0, pos=array([0.  , 0.25]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.7660 	EXP 	Created TR_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='TR_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+8.7813 	EXP 	Created TR_Circle_Frame_Penalty = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle_Frame_Penalty', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.7960 	EXP 	Created TR_Penalty_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='TR_Penalty_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.8025 	EXP 	Created Instr_CR_Old_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_CR_Old_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.8177 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.8190 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.8389 	EXP 	Created RT_Circle_Fame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=None, fillColorSpace='rgb', fillRGB=None, interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Fame', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.8537 	EXP 	Created RT_Ctx = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-2.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=None, lineColorSpace='rgb', lineRGB=None, lineWidth=1.0, name='RT_Ctx', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+8.8554 	EXP 	Created RT_Stim_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Stim_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.8706 	EXP 	Created RT_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.8724 	EXP 	Created RT_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+8.8874 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.8895 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.8919 	EXP 	Created Instr_CR_New_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_CR_New_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.9071 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.9092 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.9241 	EXP 	Created RT_Circle_Fame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=None, fillColorSpace='rgb', fillRGB=None, interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Fame', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.9388 	EXP 	Created RT_Ctx = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-2.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=None, lineColorSpace='rgb', lineRGB=None, lineWidth=1.0, name='RT_Ctx', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+8.9410 	EXP 	Created RT_Stim_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Stim_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.9561 	EXP 	Created RT_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.9581 	EXP 	Created RT_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+8.9734 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.9755 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+8.9781 	EXP 	Created Instr_RT_Old_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_RT_Old_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.9803 	EXP 	Created Instr_Block_Num_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_Block_Num_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+8.9955 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+8.9974 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.0123 	EXP 	Created RT_Circle_Fame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=None, fillColorSpace='rgb', fillRGB=None, interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Fame', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.0272 	EXP 	Created RT_Ctx = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-2.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=None, lineColorSpace='rgb', lineRGB=None, lineWidth=1.0, name='RT_Ctx', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+9.0295 	EXP 	Created RT_Stim_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Stim_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.0449 	EXP 	Created RT_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.0474 	EXP 	Created RT_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+9.0625 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.0650 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.0674 	EXP 	Created Instr_RT_New_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_RT_New_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.0696 	EXP 	Created Instr_Block_Num_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_Block_Num_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.0848 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.0872 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.1030 	EXP 	Created RT_Circle_Fame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=None, fillColorSpace='rgb', fillRGB=None, interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Fame', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.1179 	EXP 	Created RT_Ctx = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-2.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=None, lineColorSpace='rgb', lineRGB=None, lineWidth=1.0, name='RT_Ctx', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+9.1202 	EXP 	Created RT_Stim_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Stim_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.1353 	EXP 	Created RT_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='RT_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.1376 	EXP 	Created RT_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='RT_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+9.1525 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.1549 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.1575 	EXP 	Created Instr_TR_Old_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_TR_Old_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.1597 	EXP 	Created Instr_Block_Num_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_Block_Num_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.1747 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.1772 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.1922 	EXP 	Created TR_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle_Frame', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.2070 	EXP 	Created TR_Circle = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-2.0, fillColor=None, fillColorSpace='rgb', fillRGB=None, interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+9.2219 	EXP 	Created TR_Ctx = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-3.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=None, lineColorSpace='rgb', lineRGB=None, lineWidth=1.0, name='TR_Ctx', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+9.2244 	EXP 	Created TR_Stim_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-4.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='TR_Stim_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.2393 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.2417 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.2568 	EXP 	Created Tr_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Tr_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.2651 	EXP 	Created TR_Feedback_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.08, italic=False, languageStyle='LTR', name='TR_Feedback_Text', opacity=1.0, ori=0, pos=array([0.  , 0.25]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.2664 	EXP 	Created TR_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='TR_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+9.2815 	EXP 	Created TR_Circle_Frame_Penalty = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle_Frame_Penalty', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.2842 	EXP 	Created TR_Penalty_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='TR_Penalty_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.2865 	EXP 	Created Instr_TR_New_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_TR_New_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.2888 	EXP 	Created Instr_Block_Num_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.03, italic=False, languageStyle='LTR', name='Instr_Block_Num_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.3045 	EXP 	Created Pre_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Pre_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.3058 	EXP 	Created Pre_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Pre_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.3208 	EXP 	Created TR_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-1.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle_Frame', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.3357 	EXP 	Created TR_Circle = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-2.0, fillColor=None, fillColorSpace='rgb', fillRGB=None, interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+9.3503 	EXP 	Created TR_Ctx = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=-3.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=None, lineColorSpace='rgb', lineRGB=None, lineWidth=1.0, name='TR_Ctx', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([1., 1.]), units='height', vertices=ndarray(...), win=Window(...))
+9.3516 	EXP 	Created TR_Stim_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-4.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='TR_Stim_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.3666 	EXP 	Created Post_Trial_Circle_Frame = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Post_Trial_Circle_Frame', opacity=0.5, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.3678 	EXP 	Created Post_Trial_HandShape = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='Post_Trial_HandShape', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.25, 0.25]), texRes=128, units='height', win=Window(...))
+9.3827 	EXP 	Created Tr_Circle_Frame_Feedback = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='Tr_Circle_Frame_Feedback', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.3853 	EXP 	Created TR_Feedback_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.08, italic=False, languageStyle='LTR', name='TR_Feedback_Text', opacity=1.0, ori=0, pos=array([0.  , 0.25]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.3865 	EXP 	Created TR_Feedback_Image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-2.0, flipHoriz=False, flipVert=False, image='sin', interpolate=True, mask=None, maskParams=None, name='TR_Feedback_Image', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.18, 0.18]), texRes=128, units='height', win=Window(...))
+9.4018 	EXP 	Created TR_Circle_Frame_Penalty = Polygon(__class__=<class 'psychopy.visual.polygon.Polygon'>, autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace=None, contrast=1.0, depth=0.0, fillColor=array([-1., -1., -1.]), fillColorSpace='rgb', fillRGB=array([-1., -1., -1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1.0, name='TR_Circle_Frame_Penalty', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.3, 0.3]), units='height', vertices=ndarray(...), win=Window(...))
+9.4044 	EXP 	Created TR_Penalty_Text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='TR_Penalty_Text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='default text', units='height', win=Window(...), wrapWidth=1)
+9.4331 	EXP 	Imported conditions.xlsx as conditions, 4 conditions, 10 params
+9.4333 	EXP 	Created sequence: sequential, trialTypes=4, nReps=1, seed=None
+9.4336 	EXP 	New trial (rep=0, index=0): OrderedDict([('Stim', 0), ('Ctx_Color', [1, -1, -1]), ('Key', 'h'), ('KeyNum', 0), ('imStim', 'media/dcnb.png'), ('X_Pos', -0.038), ('Y_Pos', 0.075), ('Hand', 'media/hand.png'), ('Check', 'media/check.png'), ('Cross', 'media/cross.png')])
+9.4581 	EXP 	New trial (rep=0, index=1): OrderedDict([('Stim', 1), ('Ctx_Color', [-1, 1, -1]), ('Key', 'u'), ('KeyNum', 1), ('imStim', 'media/dfnb.png'), ('X_Pos', 0.014), ('Y_Pos', 0.1), ('Hand', None), ('Check', None), ('Cross', None)])
+9.4601 	EXP 	New trial (rep=0, index=2): OrderedDict([('Stim', 2), ('Ctx_Color', None), ('Key', 'h'), ('KeyNum', 0), ('imStim', 'media/dbnb.png'), ('X_Pos', 0.057), ('Y_Pos', 0.08), ('Hand', None), ('Check', None), ('Cross', None)])
+9.4620 	EXP 	New trial (rep=0, index=3): OrderedDict([('Stim', 3), ('Ctx_Color', None), ('Key', 'u'), ('KeyNum', 1), ('imStim', 'media/dknb.png'), ('X_Pos', 0.1), ('Y_Pos', 0.04), ('Hand', None), ('Check', None), ('Cross', None)])
+9.4639 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+9.4641 	EXP 	New trial (rep=0, index=0): None
+9.4719 	EXP 	Instr_Exp_Text: autoDraw = True
+10.9541 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+10.9542 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+10.9544 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+10.9546 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+10.9548 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+10.9549 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+10.9551 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+10.9552 	EXP 	New trial (rep=0, index=0): None
+10.9888 	DATA 	Keypress: space
+10.9927 	EXP 	Instr_Exp_Text: autoDraw = False
+10.9927 	EXP 	Instr_TR_Old_Text: text = 'Good job so far. \n\nIn the following 6 blocks, press the corresponding key when the larger white ring intersects the smaller gray ring. Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess. \n\nPress one of the keys to start.'
+10.9927 	EXP 	Instr_TR_Old_Text: autoDraw = True
+12.6040 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+12.6042 	EXP 	New trial (rep=0, index=0): None
+12.6169 	DATA 	Keypress: h
+12.6204 	EXP 	Instr_TR_Old_Text: autoDraw = False
+12.6204 	EXP 	Instr_Block_Num_Text: text = 'Block 1\nPress one of (H, U) to start'
+12.6204 	EXP 	Instr_Block_Num_Text: autoDraw = True
+13.0871 	EXP 	Created sequence: sequential, trialTypes=1, nReps=8, seed=None
+13.0872 	EXP 	New trial (rep=0, index=0): None
+13.1586 	DATA 	Keypress: h
+13.1632 	EXP 	Instr_Block_Num_Text: autoDraw = False
+13.1632 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+13.1632 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+13.1632 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+13.1632 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+13.1632 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+13.1632 	EXP 	Pre_Trial_HandShape: autoDraw = True
+13.2683 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+13.2683 	EXP 	Pre_Trial_HandShape: autoDraw = False
+13.2683 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+13.2683 	EXP 	Pre_Trial_HandShape: autoDraw = False
+13.2683 	EXP 	TR_Circle_Frame: opacity = 0.5
+13.2683 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+13.2683 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+13.2683 	EXP 	TR_Circle: opacity = 1.0
+13.2683 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+13.2683 	EXP 	TR_Circle: lineWidth = 12.0
+13.2683 	EXP 	TR_Ctx: opacity = 0.5
+13.2683 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+13.2683 	EXP 	TR_Ctx: fillColor = '[ 1. -1. -1.] (rgb)'
+13.2683 	EXP 	TR_Ctx: lineWidth = 0.0
+13.2683 	EXP 	TR_Stim_Image: image = 'media/dcnb.png'
+13.2683 	EXP 	TR_Circle_Frame: autoDraw = True
+13.2683 	EXP 	TR_Circle: autoDraw = True
+13.2683 	EXP 	TR_Ctx: autoDraw = True
+14.0832 	EXP 	TR_Stim_Image: autoDraw = True
+14.6113 	DATA 	Keypress: h
+14.6159 	EXP 	TR_Circle_Frame: autoDraw = False
+14.6159 	EXP 	TR_Circle: autoDraw = False
+14.6159 	EXP 	TR_Ctx: autoDraw = False
+14.6159 	EXP 	TR_Stim_Image: autoDraw = False
+14.6159 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+14.6159 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+14.6159 	EXP 	Post_Trial_HandShape: opacity = 0.0
+14.6159 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+14.6159 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+14.6159 	EXP 	Post_Trial_HandShape: autoDraw = True
+14.7026 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+14.7027 	EXP 	New trial (rep=0, index=0): None
+14.7768 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+14.7768 	EXP 	Post_Trial_HandShape: autoDraw = False
+14.7768 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+14.7768 	EXP 	Post_Trial_HandShape: autoDraw = False
+14.7768 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+14.7768 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+14.7768 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+14.7768 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+14.7768 	EXP 	TR_Feedback_Text: text = 'good timing'
+14.7768 	EXP 	TR_Feedback_Image: image = 'media/check.png'
+14.7768 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+14.7768 	EXP 	TR_Feedback_Text: autoDraw = True
+14.7768 	EXP 	TR_Feedback_Image: autoDraw = True
+15.0689 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+15.0691 	EXP 	New trial (rep=1, index=0): None
+15.0873 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+15.0873 	EXP 	TR_Feedback_Text: autoDraw = False
+15.0873 	EXP 	TR_Feedback_Image: autoDraw = False
+15.0873 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+15.0873 	EXP 	TR_Feedback_Text: autoDraw = False
+15.0873 	EXP 	TR_Feedback_Image: autoDraw = False
+15.0873 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+15.0873 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+15.0873 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+15.0873 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+15.0873 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+15.0873 	EXP 	Pre_Trial_HandShape: autoDraw = True
+15.1997 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+15.1997 	EXP 	Pre_Trial_HandShape: autoDraw = False
+15.1997 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+15.1997 	EXP 	Pre_Trial_HandShape: autoDraw = False
+15.1997 	EXP 	TR_Circle_Frame: opacity = 0.5
+15.1997 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+15.1997 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+15.1997 	EXP 	TR_Circle: opacity = 1.0
+15.1997 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+15.1997 	EXP 	TR_Circle: lineWidth = 12.0
+15.1997 	EXP 	TR_Ctx: opacity = 0.5
+15.1997 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+15.1997 	EXP 	TR_Ctx: fillColor = '[-1.  1. -1.] (rgb)'
+15.1997 	EXP 	TR_Ctx: lineWidth = 0.0
+15.1997 	EXP 	TR_Stim_Image: image = 'media/dcnb.png'
+15.1997 	EXP 	TR_Circle_Frame: autoDraw = True
+15.1997 	EXP 	TR_Circle: autoDraw = True
+15.1997 	EXP 	TR_Ctx: autoDraw = True
+16.0666 	EXP 	TR_Stim_Image: autoDraw = True
+16.5569 	DATA 	Keypress: u
+16.5615 	EXP 	TR_Circle_Frame: autoDraw = False
+16.5615 	EXP 	TR_Circle: autoDraw = False
+16.5615 	EXP 	TR_Ctx: autoDraw = False
+16.5615 	EXP 	TR_Stim_Image: autoDraw = False
+16.5615 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+16.5615 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+16.5615 	EXP 	Post_Trial_HandShape: opacity = 0.0
+16.5615 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+16.5615 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+16.5615 	EXP 	Post_Trial_HandShape: autoDraw = True
+16.6528 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+16.6530 	EXP 	New trial (rep=0, index=0): None
+16.6733 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+16.6733 	EXP 	Post_Trial_HandShape: autoDraw = False
+16.6733 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+16.6733 	EXP 	Post_Trial_HandShape: autoDraw = False
+16.6733 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+16.6733 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+16.6733 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+16.6733 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+16.6733 	EXP 	TR_Feedback_Text: text = 'good timing'
+16.6733 	EXP 	TR_Feedback_Image: image = 'media/check.png'
+16.6733 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+16.6733 	EXP 	TR_Feedback_Text: autoDraw = True
+16.6733 	EXP 	TR_Feedback_Image: autoDraw = True
+16.9693 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+16.9695 	EXP 	New trial (rep=2, index=0): None
+16.9882 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+16.9882 	EXP 	TR_Feedback_Text: autoDraw = False
+16.9882 	EXP 	TR_Feedback_Image: autoDraw = False
+16.9882 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+16.9882 	EXP 	TR_Feedback_Text: autoDraw = False
+16.9882 	EXP 	TR_Feedback_Image: autoDraw = False
+16.9882 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+16.9882 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+16.9882 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+16.9882 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+16.9882 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+16.9882 	EXP 	Pre_Trial_HandShape: autoDraw = True
+17.0995 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+17.0995 	EXP 	Pre_Trial_HandShape: autoDraw = False
+17.0995 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+17.0995 	EXP 	Pre_Trial_HandShape: autoDraw = False
+17.0995 	EXP 	TR_Circle_Frame: opacity = 0.5
+17.0995 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+17.0995 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+17.0995 	EXP 	TR_Circle: opacity = 1.0
+17.0995 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+17.0995 	EXP 	TR_Circle: lineWidth = 12.0
+17.0995 	EXP 	TR_Ctx: opacity = 0.5
+17.0995 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+17.0995 	EXP 	TR_Ctx: fillColor = '[-1.  1. -1.] (rgb)'
+17.0995 	EXP 	TR_Ctx: lineWidth = 0.0
+17.0995 	EXP 	TR_Stim_Image: image = 'media/dfnb.png'
+17.0995 	EXP 	TR_Circle_Frame: autoDraw = True
+17.0995 	EXP 	TR_Circle: autoDraw = True
+17.0995 	EXP 	TR_Ctx: autoDraw = True
+17.0995 	EXP 	TR_Stim_Image: autoDraw = True
+18.4533 	DATA 	Keypress: h
+18.4578 	EXP 	TR_Circle_Frame: autoDraw = False
+18.4578 	EXP 	TR_Circle: autoDraw = False
+18.4578 	EXP 	TR_Ctx: autoDraw = False
+18.4578 	EXP 	TR_Stim_Image: autoDraw = False
+18.4578 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+18.4578 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+18.4578 	EXP 	Post_Trial_HandShape: opacity = 0.0
+18.4578 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+18.4578 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+18.4578 	EXP 	Post_Trial_HandShape: autoDraw = True
+18.5527 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+18.5529 	EXP 	New trial (rep=0, index=0): None
+18.5733 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+18.5733 	EXP 	Post_Trial_HandShape: autoDraw = False
+18.5733 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+18.5733 	EXP 	Post_Trial_HandShape: autoDraw = False
+18.5733 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+18.5733 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+18.5733 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+18.5733 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+18.5733 	EXP 	TR_Feedback_Text: text = 'good timing'
+18.5733 	EXP 	TR_Feedback_Image: image = 'media/check.png'
+18.5733 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+18.5733 	EXP 	TR_Feedback_Text: autoDraw = True
+18.5733 	EXP 	TR_Feedback_Image: autoDraw = True
+18.8690 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+18.8692 	EXP 	New trial (rep=3, index=0): None
+18.8881 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+18.8881 	EXP 	TR_Feedback_Text: autoDraw = False
+18.8881 	EXP 	TR_Feedback_Image: autoDraw = False
+18.8881 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+18.8881 	EXP 	TR_Feedback_Text: autoDraw = False
+18.8881 	EXP 	TR_Feedback_Image: autoDraw = False
+18.8881 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+18.8881 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+18.8881 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+18.8881 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+18.8881 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+18.8881 	EXP 	Pre_Trial_HandShape: autoDraw = True
+18.9998 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+18.9998 	EXP 	Pre_Trial_HandShape: autoDraw = False
+18.9998 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+18.9998 	EXP 	Pre_Trial_HandShape: autoDraw = False
+18.9998 	EXP 	TR_Circle_Frame: opacity = 0.5
+18.9998 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+18.9998 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+18.9998 	EXP 	TR_Circle: opacity = 1.0
+18.9998 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+18.9998 	EXP 	TR_Circle: lineWidth = 12.0
+18.9998 	EXP 	TR_Ctx: opacity = 0.5
+18.9998 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+18.9998 	EXP 	TR_Ctx: fillColor = '[ 1. -1. -1.] (rgb)'
+18.9998 	EXP 	TR_Ctx: lineWidth = 0.0
+18.9998 	EXP 	TR_Stim_Image: image = 'media/dfnb.png'
+18.9998 	EXP 	TR_Circle_Frame: autoDraw = True
+18.9998 	EXP 	TR_Circle: autoDraw = True
+18.9998 	EXP 	TR_Ctx: autoDraw = True
+19.2335 	EXP 	TR_Stim_Image: autoDraw = True
+20.3210 	DATA 	Keypress: u
+20.3255 	EXP 	TR_Circle_Frame: autoDraw = False
+20.3255 	EXP 	TR_Circle: autoDraw = False
+20.3255 	EXP 	TR_Ctx: autoDraw = False
+20.3255 	EXP 	TR_Stim_Image: autoDraw = False
+20.3255 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+20.3255 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+20.3255 	EXP 	Post_Trial_HandShape: opacity = 0.0
+20.3255 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+20.3255 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+20.3255 	EXP 	Post_Trial_HandShape: autoDraw = True
+20.4184 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+20.4186 	EXP 	New trial (rep=0, index=0): None
+20.4362 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+20.4362 	EXP 	Post_Trial_HandShape: autoDraw = False
+20.4362 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+20.4362 	EXP 	Post_Trial_HandShape: autoDraw = False
+20.4362 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+20.4362 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+20.4362 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+20.4362 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+20.4362 	EXP 	TR_Feedback_Text: text = 'good timing'
+20.4362 	EXP 	TR_Feedback_Image: image = 'media/check.png'
+20.4362 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+20.4362 	EXP 	TR_Feedback_Text: autoDraw = True
+20.4362 	EXP 	TR_Feedback_Image: autoDraw = True
+20.7365 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+20.7368 	EXP 	New trial (rep=4, index=0): None
+20.7554 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+20.7554 	EXP 	TR_Feedback_Text: autoDraw = False
+20.7554 	EXP 	TR_Feedback_Image: autoDraw = False
+20.7554 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+20.7554 	EXP 	TR_Feedback_Text: autoDraw = False
+20.7554 	EXP 	TR_Feedback_Image: autoDraw = False
+20.7554 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+20.7554 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+20.7554 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+20.7554 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+20.7554 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+20.7554 	EXP 	Pre_Trial_HandShape: autoDraw = True
+20.8663 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+20.8663 	EXP 	Pre_Trial_HandShape: autoDraw = False
+20.8663 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+20.8663 	EXP 	Pre_Trial_HandShape: autoDraw = False
+20.8663 	EXP 	TR_Circle_Frame: opacity = 0.5
+20.8663 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+20.8663 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+20.8663 	EXP 	TR_Circle: opacity = 1.0
+20.8663 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+20.8663 	EXP 	TR_Circle: lineWidth = 12.0
+20.8663 	EXP 	TR_Ctx: opacity = 0.5
+20.8663 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+20.8663 	EXP 	TR_Ctx: fillColor = '[-1.  1. -1.] (rgb)'
+20.8663 	EXP 	TR_Ctx: lineWidth = 0.0
+20.8663 	EXP 	TR_Stim_Image: image = 'media/dcnb.png'
+20.8663 	EXP 	TR_Circle_Frame: autoDraw = True
+20.8663 	EXP 	TR_Circle: autoDraw = True
+20.8663 	EXP 	TR_Ctx: autoDraw = True
+20.8999 	EXP 	TR_Stim_Image: autoDraw = True
+22.2705 	DATA 	Keypress: h
+22.2752 	EXP 	TR_Circle_Frame: autoDraw = False
+22.2752 	EXP 	TR_Circle: autoDraw = False
+22.2752 	EXP 	TR_Ctx: autoDraw = False
+22.2752 	EXP 	TR_Stim_Image: autoDraw = False
+22.2752 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+22.2752 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+22.2752 	EXP 	Post_Trial_HandShape: opacity = 0.0
+22.2752 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+22.2752 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+22.2752 	EXP 	Post_Trial_HandShape: autoDraw = True
+22.3688 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+22.3690 	EXP 	New trial (rep=0, index=0): None
+22.4163 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+22.4163 	EXP 	Post_Trial_HandShape: autoDraw = False
+22.4163 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+22.4163 	EXP 	Post_Trial_HandShape: autoDraw = False
+22.4163 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+22.4163 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+22.4163 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+22.4163 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+22.4163 	EXP 	TR_Feedback_Text: text = 'little late'
+22.4163 	EXP 	TR_Feedback_Image: image = 'media/cross.png'
+22.4163 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+22.4163 	EXP 	TR_Feedback_Text: autoDraw = True
+22.4163 	EXP 	TR_Feedback_Image: autoDraw = True
+22.7073 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+22.7084 	EXP 	New trial (rep=5, index=0): None
+22.7348 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+22.7348 	EXP 	TR_Feedback_Text: autoDraw = False
+22.7348 	EXP 	TR_Feedback_Image: autoDraw = False
+22.7348 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+22.7348 	EXP 	TR_Feedback_Text: autoDraw = False
+22.7348 	EXP 	TR_Feedback_Image: autoDraw = False
+22.7348 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+22.7348 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+22.7348 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+22.7348 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+22.7348 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+22.7348 	EXP 	Pre_Trial_HandShape: autoDraw = True
+22.8511 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+22.8511 	EXP 	Pre_Trial_HandShape: autoDraw = False
+22.8511 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+22.8511 	EXP 	Pre_Trial_HandShape: autoDraw = False
+22.8511 	EXP 	TR_Circle_Frame: opacity = 0.5
+22.8511 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+22.8511 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+22.8511 	EXP 	TR_Circle: opacity = 1.0
+22.8511 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+22.8511 	EXP 	TR_Circle: lineWidth = 12.0
+22.8511 	EXP 	TR_Ctx: opacity = 0.5
+22.8511 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+22.8511 	EXP 	TR_Ctx: fillColor = '[-1.  1. -1.] (rgb)'
+22.8511 	EXP 	TR_Ctx: lineWidth = 0.0
+22.8511 	EXP 	TR_Stim_Image: image = 'media/dfnb.png'
+22.8511 	EXP 	TR_Circle_Frame: autoDraw = True
+22.8511 	EXP 	TR_Circle: autoDraw = True
+22.8511 	EXP 	TR_Ctx: autoDraw = True
+23.7832 	EXP 	TR_Stim_Image: autoDraw = True
+24.2703 	DATA 	Keypress: h
+24.2748 	EXP 	TR_Circle_Frame: autoDraw = False
+24.2748 	EXP 	TR_Circle: autoDraw = False
+24.2748 	EXP 	TR_Ctx: autoDraw = False
+24.2748 	EXP 	TR_Stim_Image: autoDraw = False
+24.2748 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+24.2748 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+24.2748 	EXP 	Post_Trial_HandShape: opacity = 0.0
+24.2748 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+24.2748 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+24.2748 	EXP 	Post_Trial_HandShape: autoDraw = True
+24.3694 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+24.3696 	EXP 	New trial (rep=0, index=0): None
+24.3907 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+24.3907 	EXP 	Post_Trial_HandShape: autoDraw = False
+24.3907 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+24.3907 	EXP 	Post_Trial_HandShape: autoDraw = False
+24.3907 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+24.3907 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+24.3907 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+24.3907 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+24.3907 	EXP 	TR_Feedback_Text: text = 'little late'
+24.3907 	EXP 	TR_Feedback_Image: image = 'media/check.png'
+24.3907 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+24.3907 	EXP 	TR_Feedback_Text: autoDraw = True
+24.3907 	EXP 	TR_Feedback_Image: autoDraw = True
+24.6899 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+24.6907 	EXP 	New trial (rep=6, index=0): None
+24.7163 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+24.7163 	EXP 	TR_Feedback_Text: autoDraw = False
+24.7163 	EXP 	TR_Feedback_Image: autoDraw = False
+24.7163 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+24.7163 	EXP 	TR_Feedback_Text: autoDraw = False
+24.7163 	EXP 	TR_Feedback_Image: autoDraw = False
+24.7163 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+24.7163 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+24.7163 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+24.7163 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+24.7163 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+24.7163 	EXP 	Pre_Trial_HandShape: autoDraw = True
+24.8179 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+24.8179 	EXP 	Pre_Trial_HandShape: autoDraw = False
+24.8179 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+24.8179 	EXP 	Pre_Trial_HandShape: autoDraw = False
+24.8179 	EXP 	TR_Circle_Frame: opacity = 0.5
+24.8179 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+24.8179 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+24.8179 	EXP 	TR_Circle: opacity = 1.0
+24.8179 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+24.8179 	EXP 	TR_Circle: lineWidth = 12.0
+24.8179 	EXP 	TR_Ctx: opacity = 0.5
+24.8179 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+24.8179 	EXP 	TR_Ctx: fillColor = '[ 1. -1. -1.] (rgb)'
+24.8179 	EXP 	TR_Ctx: lineWidth = 0.0
+24.8179 	EXP 	TR_Stim_Image: image = 'media/dcnb.png'
+24.8179 	EXP 	TR_Circle_Frame: autoDraw = True
+24.8179 	EXP 	TR_Circle: autoDraw = True
+24.8179 	EXP 	TR_Ctx: autoDraw = True
+25.6839 	EXP 	TR_Stim_Image: autoDraw = True
+26.1728 	DATA 	Keypress: u
+26.2064 	EXP 	TR_Circle_Frame: autoDraw = False
+26.2064 	EXP 	TR_Circle: autoDraw = False
+26.2064 	EXP 	TR_Ctx: autoDraw = False
+26.2064 	EXP 	TR_Stim_Image: autoDraw = False
+26.2064 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+26.2064 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+26.2064 	EXP 	Post_Trial_HandShape: opacity = 0.0
+26.2064 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+26.2064 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+26.2064 	EXP 	Post_Trial_HandShape: autoDraw = True
+26.3034 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+26.3037 	EXP 	New trial (rep=0, index=0): None
+26.3270 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+26.3270 	EXP 	Post_Trial_HandShape: autoDraw = False
+26.3270 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+26.3270 	EXP 	Post_Trial_HandShape: autoDraw = False
+26.3270 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+26.3270 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+26.3270 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+26.3270 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+26.3270 	EXP 	TR_Feedback_Text: text = 'good timing'
+26.3270 	EXP 	TR_Feedback_Image: image = 'media/cross.png'
+26.3270 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+26.3270 	EXP 	TR_Feedback_Text: autoDraw = True
+26.3270 	EXP 	TR_Feedback_Image: autoDraw = True
+26.6197 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+26.6200 	EXP 	New trial (rep=7, index=0): None
+26.6433 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+26.6433 	EXP 	TR_Feedback_Text: autoDraw = False
+26.6433 	EXP 	TR_Feedback_Image: autoDraw = False
+26.6433 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+26.6433 	EXP 	TR_Feedback_Text: autoDraw = False
+26.6433 	EXP 	TR_Feedback_Image: autoDraw = False
+26.6433 	EXP 	Pre_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+26.6433 	EXP 	Pre_Trial_Circle_Frame: lineWidth = 12.0
+26.6433 	EXP 	Pre_Trial_HandShape: opacity = 0.0
+26.6433 	EXP 	Pre_Trial_HandShape: image = 'media/hand.png'
+26.6433 	EXP 	Pre_Trial_Circle_Frame: autoDraw = True
+26.6433 	EXP 	Pre_Trial_HandShape: autoDraw = True
+26.7500 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+26.7500 	EXP 	Pre_Trial_HandShape: autoDraw = False
+26.7500 	EXP 	Pre_Trial_Circle_Frame: autoDraw = False
+26.7500 	EXP 	Pre_Trial_HandShape: autoDraw = False
+26.7500 	EXP 	TR_Circle_Frame: opacity = 0.5
+26.7500 	EXP 	TR_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+26.7500 	EXP 	TR_Circle_Frame: lineWidth = 12.0
+26.7500 	EXP 	TR_Circle: opacity = 1.0
+26.7500 	EXP 	TR_Circle: lineColor = '[1. 1. 1.] (rgb)'
+26.7500 	EXP 	TR_Circle: lineWidth = 12.0
+26.7500 	EXP 	TR_Ctx: opacity = 0.5
+26.7500 	EXP 	TR_Ctx: size = array([0.29, 0.29])
+26.7500 	EXP 	TR_Ctx: fillColor = '[ 1. -1. -1.] (rgb)'
+26.7500 	EXP 	TR_Ctx: lineWidth = 0.0
+26.7500 	EXP 	TR_Stim_Image: image = 'media/dfnb.png'
+26.7500 	EXP 	TR_Circle_Frame: autoDraw = True
+26.7500 	EXP 	TR_Circle: autoDraw = True
+26.7500 	EXP 	TR_Ctx: autoDraw = True
+26.9166 	EXP 	TR_Stim_Image: autoDraw = True
+28.1881 	DATA 	Keypress: h
+28.2300 	EXP 	TR_Circle_Frame: autoDraw = False
+28.2300 	EXP 	TR_Circle: autoDraw = False
+28.2300 	EXP 	TR_Ctx: autoDraw = False
+28.2300 	EXP 	TR_Stim_Image: autoDraw = False
+28.2300 	EXP 	Post_Trial_Circle_Frame: lineColor = '[1. 1. 1.] (rgb)'
+28.2300 	EXP 	Post_Trial_Circle_Frame: lineWidth = 12.0
+28.2300 	EXP 	Post_Trial_HandShape: opacity = 0.0
+28.2300 	EXP 	Post_Trial_HandShape: image = 'media/hand.png'
+28.2300 	EXP 	Post_Trial_Circle_Frame: autoDraw = True
+28.2300 	EXP 	Post_Trial_HandShape: autoDraw = True
+28.3194 	EXP 	Created sequence: sequential, trialTypes=1, nReps=1, seed=None
+28.3197 	EXP 	New trial (rep=0, index=0): None
+28.3429 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+28.3429 	EXP 	Post_Trial_HandShape: autoDraw = False
+28.3429 	EXP 	Post_Trial_Circle_Frame: autoDraw = False
+28.3429 	EXP 	Post_Trial_HandShape: autoDraw = False
+28.3429 	EXP 	Tr_Circle_Frame_Feedback: opacity = 0.5
+28.3429 	EXP 	Tr_Circle_Frame_Feedback: lineColor = '[1. 1. 1.] (rgb)'
+28.3429 	EXP 	Tr_Circle_Frame_Feedback: lineWidth = 12.0
+28.3429 	EXP 	TR_Feedback_Text: color = '[1. 1. 1.] (rgb)'
+28.3429 	EXP 	TR_Feedback_Text: text = 'little late'
+28.3429 	EXP 	TR_Feedback_Image: image = 'media/cross.png'
+28.3429 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = True
+28.3429 	EXP 	TR_Feedback_Text: autoDraw = True
+28.3429 	EXP 	TR_Feedback_Image: autoDraw = True
+28.6369 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+28.6373 	EXP 	Created sequence: sequential, trialTypes=1, nReps=0, seed=None
+28.6502 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+28.6502 	EXP 	TR_Feedback_Text: autoDraw = False
+28.6502 	EXP 	TR_Feedback_Image: autoDraw = False
+28.6502 	EXP 	Tr_Circle_Frame_Feedback: autoDraw = False
+28.6502 	EXP 	TR_Feedback_Text: autoDraw = False
+28.6502 	EXP 	TR_Feedback_Image: autoDraw = False
+28.7066 	EXP 	window1: mouseVisible = True
