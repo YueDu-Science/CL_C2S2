@@ -3013,7 +3013,7 @@ Whenever you are ready, press (H) or (U) to start.`
         if (((1 < session) && (session < 6))) {
             instr_rt_old_text = `Today, we first continue to practice the symbol-key maps for ${rt_old_block} blocks.
     
-There are ${rt_old_block} blocks today. Remember, your job is to press the corresponding key as quickly and accurately as you can.
+Remember, your job is to press the corresponding key as quickly and accurately as you can.
     
 Ready? Press (H) or (U)to start.`
     ;
