@@ -3387,6 +3387,7 @@ var finger_item;
 var y_item;
 var stim_start_time;
 var prep_time;
+var ctx_start_time;
 var position_item;
 var stim_hand;
 var Pre_Trial_HandComponents;
