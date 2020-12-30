@@ -5088,6 +5088,8 @@ function RT_Enter_TrialRoutineBegin(trials) {
     t = 0;
     RT_Enter_TrialClock.reset(); // clock
     frameN = -1;
+    console.log(ctx_color_item)
+    console.log(circle_frame_color)
     // update component parameters for each repeat
     RT_Circle_Fame.setOpacity(circle_frame_opacity);
     RT_Circle_Fame.setLineColor(new util.Color(circle_frame_color));
